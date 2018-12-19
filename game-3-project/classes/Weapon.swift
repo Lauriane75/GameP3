@@ -8,35 +8,40 @@
 
 import Foundation
 
-class Weapons {
+class Weapon {
+    let nameWeapon: String
     var injuries: Int
+    var healing: Int
     
-    init(injuries: Int) {
+    
+    init(nameWeapon: String, injuries: Int, healing: Int) {
         self.injuries = injuries
+        self.nameWeapon = nameWeapon
+        self.healing = healing
     }
 }
 
-class Sword: Weapons {
+class Sword: Weapon {
     init() {
-        super.init(injuries: 10)
+        super.init(nameWeapon: "Sword", injuries: 10, healing: 0)
     }
 }
 
-class MagicHealing: Weapons {
+class MagicHealing: Weapon {
     init() {
-        super.init(injuries: 0)
+        super.init(nameWeapon: "MagicHealing", injuries: 0, healing: 50)
         // The magus can give defense point to characters of his own team + 100 defense points
     }
 }
 
-class Hammer: Weapons {
+class Hammer: Weapon {
     init() {
-        super.init(injuries: 5)
+        super.init(nameWeapon: "Hammer", injuries: 5, healing: 0)
     }
 }
 
-class Axe: Weapons {
+class Axe: Weapon {
     init() {
-        super.init(injuries: 50)
+        super.init(nameWeapon: "Axe", injuries: 50, healing: 0)
     }
 }
