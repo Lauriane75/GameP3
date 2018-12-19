@@ -12,14 +12,73 @@ func input() -> Int {
     let strData = readLine();
     
     return Int(strData!)!
+}
     
     enum PlayerType {
         case Player1, Player2
     }
 
-class Players {
+class Player {
+    var team = [Character]() // will create a team of 3 character
     
-    var players = [Player1, Player2]
+    var namePlayer: String
+    var teamOfCharacters = [Character]()
+    init(namePlayer: String) {
+        self.namePlayer = namePlayer
+    }
+    
+    func createTeamDescription() {
+        print("")
+        print("==============================================================")
+        print("1 - Fighter   - Defense: 100 - Attack: 10 - Magic Healing: +0")
+        print("2 - Magus  - Defense: 300 - Attack: 0 - Magic Healing: +50")
+        print("3 - Colossus    - Defense: 400  - Attack: 5 - Magic Healing: +0")
+        print("4 - Dwarft  - Defense: 50  - Attack  : 50 - Magic Healing: +0")
+        print("==============================================================")
+        print("Choose a character by typing a number between 1 and 4 ========")
+    }
+    
+    func createYourTeam() {
+        for _ in 0..<3 { // ask 3 times for 3 characters in the team
+            let characterChoice = 0
+            repeat {
+                createTeamDescription()   // call the function describing character's properties
+        
+            } while characterChoice < 1 && characterChoice > 4
+        
+            switch characterChoice { 
+            case 1:
+            print("You chose a Fighter")
+            team.append(Fighter(name: <#String#>))
+            case 2:
+            print("You chose a Magus.")
+            team.append(Magus(name: <#String#>))
+            case 3:
+            print("You chose a Colossus.")
+            team.append(Colossus(name: <#String#>))
+            case 4:
+            print("You chose a Dwarf.")
+            team.append(Dwarf(name: <#String#>))
+            default:
+            return
+            }
+        }
+    }
+        
+  
+    
+    
+}
+    
+class Players1: Player{
+    
+}
+
+class Player2: Player {
+    
+}
+
+    /*var players = [Player1, Player2]
     var playerName: String // Name of the player
     var teamName : String // Name of the team
     
@@ -200,6 +259,8 @@ class Player2 : Players {
     // l'objet du perso du jouer 2
     var currentCharacter2 = Player2(CurrentCharacterChoice)
 }
-    
+    */
     
 
+
+ /**/
