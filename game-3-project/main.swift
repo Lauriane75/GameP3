@@ -8,5 +8,11 @@
 
 import Foundation
 
-print("Hello, World!")
+let game = Game()
+
+//while Game.ended == false {
+//    Game.play()
+//}
+
+print("End of Game !")
 
