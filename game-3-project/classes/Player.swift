@@ -14,9 +14,8 @@ func input() -> Int {
     return Int(strData!)!
 }
     
-    enum PlayerType {
-        case Player1, Player2
-    }
+
+
 
 class Player {
     var team = [Character]() // will create a team of 3 character
@@ -26,6 +25,7 @@ class Player {
     init(namePlayer: String) {
         self.namePlayer = namePlayer
     }
+    
     
     func createTeamDescription() {
         print("")
@@ -38,45 +38,69 @@ class Player {
         print("Choose a character by typing a number between 1 and 4 ========")
     }
     
-    func createYourTeam() {
-        for _ in 0..<3 { // ask 3 times for 3 characters in the team
-            let characterChoice = 0
+   public func createYourTeam() {
+        for _ in 1...3 { // ask 3 times for 3 characters in the team
+            let characterChoice = 1
             repeat {
                 createTeamDescription()   // call the function describing character's properties
         
             } while characterChoice < 1 && characterChoice > 4
-        
+            
+            let nameYourCharacter = UniqueName.single.uniqueCharacterNames()
+           
             switch characterChoice { 
             case 1:
             print("You chose a Fighter")
-            team.append(Fighter(name: <#String#>))
+            team.append(Fighter(name: nameYourCharacter))
             case 2:
             print("You chose a Magus.")
-            team.append(Magus(name: <#String#>))
+            team.append(Magus(name: nameYourCharacter))
             case 3:
             print("You chose a Colossus.")
-            team.append(Colossus(name: <#String#>))
+            team.append(Colossus(name: nameYourCharacter))
             case 4:
             print("You chose a Dwarf.")
-            team.append(Dwarf(name: <#String#>))
+            team.append(Dwarf(name: nameYourCharacter))
             default:
             return
             }
         }
-    }
+    
+    
+}
+    
+class UniqueName {
+        var charactersNameArray = [String]()
+        static let single = UniqueName() // launch singleton
         
-  
-    
-    
+        // determine if there are not two identical aliases
+        func uniqueCharacterNames() -> String {
+            var nameYourCharacter = ""
+            repeat {
+                print("What's your character's name : ")
+                nameYourCharacter = readLine()!
+               
+                    if charactersNameArray.contains(nameYourCharacter) { // if the array already contains the same name
+                        print("This character's name '\(nameYourCharacter)' does already exist. Can you find a new name ?")
+                        nameYourCharacter = readLine()!
+                    } else {
+                        charactersNameArray.append(nameYourCharacter) // if not, the name can be added to the character's name array
+                        print("Perfect! You are fine. ")
+                    }
+            } while nameYourCharacter == ""
+            return nameYourCharacter
+        }
+    }
 }
     
-class Players1: Player{
     
-}
 
-class Player2: Player {
+        
+   
     
-}
+    
+
+
 
     /*var players = [Player1, Player2]
     var playerName: String // Name of the player
