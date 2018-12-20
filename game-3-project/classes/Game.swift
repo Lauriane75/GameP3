@@ -14,7 +14,7 @@ class Game {
      var tabPlayer = [Player]() // Array of 2 players team1 & team2
 
     func startGame() {
-        _ = createTeam
+     print("WELCOME TO THE MAGIC WORLD")
         
         for i in 1...2 { // ask about who is playing with a for i in loop
             print("")
@@ -25,18 +25,27 @@ class Game {
             let namePlayer = readLine()  // ask for the player name
             print ("Name : \(String(describing: namePlayer))")
             tabPlayer.append(player) // add the player in an array
+        
+            _ = createTeam()
         }
+        
+        // phase de combat
+        //Fin du jeu
+        // récompense gagnant
+        
     }
+    // choisi un nom
     
+  
     
     // compose a team
    func createTeam() -> Player {
     let teamName = ""
         repeat {
         } while teamName == ""
-    let team = Player(namePlayer: teamName)
-    team.createYourTeam()
-        return team
+    let player = Player(namePlayer: teamName)
+    player.createYourTeam()
+        return player
     }
     
     
