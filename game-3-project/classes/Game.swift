@@ -41,15 +41,15 @@ class Game {
         print ("Let's start the game!")
         print ("Who wants to begin ?")
         // switch player in array to choose who will begin
-        showThe2teams()
+        showThe2Teams()
         print ("\(Player(namePlayer: <#String#>)) is playing") //-1 or +1
         // resume the 3 characters = call func()
         
         var currentCharacter:Character //question variable: type
         repeat {
             for i in 0..<arrayPlayer.count {
-                let team = arrayPlayer[i]
-                showThe2teams()
+                _ = arrayPlayer[i]
+                showThe2Teams()
                 print("===========================================")
                 print("\(i+1), it's your turn : ")
                 print("===========================================")
@@ -74,7 +74,7 @@ class Game {
         return currentCharacterChoice
     }
 
-    func showThe2teams() {
+    func showThe2Teams() {
         for i in 0..<arrayPlayer.count {
             print("Who is going to win ? \(i+1)")
             _ = arrayPlayer[i]
