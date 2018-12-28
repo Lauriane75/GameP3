@@ -84,6 +84,37 @@ class Game {
         
     }
     
+    // lauch the magic box randomly
+    
+    func magicBox(character: Character) {
+        let random = arc4random_uniform(<#UInt32#>)
+        if character.defensePoints >= 1 {
+            if random <= 25 {
+                if character is Magus {
+                    print("Crazy! You've found a magic potion!")
+                    print("Only a magus can give this potion to one of your buddy. It will give 100% of his defense points")
+                    let newWeapon = MagicPotion()
+                    character.weapon = newWeapon
+                if character is Dwarf {
+                    print("You've find a magic mushroom")
+                    print("Only Dwarfs like to eat it because it makes them much taller and bigger.")
+                    print("If you eat it now you will have a full 150 defense points")
+                    let newWeapon = MagicMushroom()
+                    } else { // If the character is a fighter or a Colossus he will find a grenade
+                    print ("Wow! You've just dicovered a new weapon!")
+                    print("You can use it during a battle on any character enemy. It will take  70 of his defense points.")
+                    let newWeapon = Grenade()
+                    
+                    character.weapon = newWeapon
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+    
 }
     
 
