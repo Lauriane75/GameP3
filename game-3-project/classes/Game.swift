@@ -11,7 +11,7 @@ import Foundation
 
 class Game {
     
-     var tabPlayer = [Player]() // Array of 2 players team1 & team2
+     var arrayPlayer = [Player]() // Array of 2 players team1 & team2
 
     func startGame() {
      print("WELCOME TO THE MAGIC WORLD")
@@ -22,11 +22,11 @@ class Game {
             print ("Player \(i+1)")
             print ("What's your name ?")
             let player = Player(namePlayer: <#String#>)
-            let namePlayer = readLine()  // ask for the player name
+            let namePlayer = readLine()
+            // ask for the player name
             print ("Name : \(String(describing: namePlayer))")
-            tabPlayer.append(player) // add the player in an array
+            arrayPlayer.append(player) // add the player in an array
         
-            _ = createTeam()
         }
         
         // phase de combat
@@ -34,32 +34,51 @@ class Game {
         // récompense gagnant
         
     }
-    // choisi un nom
     
   
     
-    // compose a team
-   func createTeam() -> Player {
-    let teamName = ""
+    func battle() {
+        print ("Let's start the game!")
+        print ("Who wants to begin ?")
+        //resumePlayer = array = call func()
+        // switch player in array to choose who will begin
+        print ("\(Player(namePlayer: <#String#>)) is playing") //-1 or +1
+        // resume the 3 characters = call func()
+        
+        var currentCharacter:Character //question variable: type
         repeat {
-        } while teamName == ""
-    let player = Player(namePlayer: teamName)
-    player.createYourTeam()
-        return player
+            for i in 0..<arrayPlayer.count {
+                let team = arrayPlayer[i]
+                showThe2teams()
+                print("===========================================")
+                print("\(i+1), it's your turn : ")
+                print("===========================================")
+                print("\(i+1), please choose a character to start the battle")
+                currentCharacter = arrayPlayer[i].arrayCharacter[characterChoice() - 1]
+            }
+        }
     }
     
+        
+        
     
     
     
-    func playerChoice() -> Int {
+
+    
+    func characterChoice() -> Int {
         var currentCharacterChoice = 0
         repeat{
             currentCharacterChoice = input()
         } while currentCharacterChoice < 1 && currentCharacterChoice > 3
         return currentCharacterChoice
     }
+
     
 }
+    
+
+
     
     
 
@@ -67,8 +86,8 @@ class Game {
 
 // players1 or player2 ?
 /*repeat {
-    for i in 0..<tabPlayer.count {
-        let team = tabPlayer[i]
+    for i in 0..<arrayPlayer.count {
+        let team = arrayPlayer[i]
         print("===========================================")
         print("Player \(i+1), it's your turn : ")
         print("===========================================")
@@ -76,7 +95,7 @@ class Game {
         print("Player \(i+1), choose a character from your team :")
         print ("Which character do you want to play with ?")
         print ("Choose between 1, 2 or 3")
-        myFighter = tabPlayer[i].character[playerChoice() - 1]
+        myFighter = arrayPlayer[i].character[characterChoice() - 1]
         // random magic box
         print("===========================================")
     }
