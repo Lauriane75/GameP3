@@ -40,8 +40,8 @@ class Game {
     func battle() {
         print ("Let's start the game!")
         print ("Who wants to begin ?")
-        //resumePlayer = array = call func()
         // switch player in array to choose who will begin
+        showThe2teams()
         print ("\(Player(namePlayer: <#String#>)) is playing") //-1 or +1
         // resume the 3 characters = call func()
         
@@ -74,6 +74,15 @@ class Game {
         return currentCharacterChoice
     }
 
+    func showThe2teams() {
+        for i in 0..<arrayPlayer.count {
+            print("Who is going to win ? \(i+1)")
+            _ = arrayPlayer[i]
+            // call the func statsOfFights()
+            
+        }
+        
+    }
     
 }
     
