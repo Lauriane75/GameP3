@@ -79,13 +79,31 @@ class Game {
                         let newWeapon = Grenade()
                         character.weapon = newWeapon
                         
-                    }
-                    
+                   }
                 }
-                
             }
-            
         }
+        
+    func userChoice() -> Int {
+        var heroChoicePlayer = 0
+            repeat{
+                if let data = readLine() { // input with readLine , unwrapping the optional and convert String to Data
+                if let dataToInt = Int(data) {
+                    heroChoicePlayer = dataToInt
+                    }
+                }
+            } while heroChoicePlayer != 1 && heroChoicePlayer != 2 && heroChoicePlayer != 3
+            return heroChoicePlayer
+    }
+        
+    func battleDesignated(ind:Int, opponentPlayer:Player, character:Character) {
+       // opponentPlayer.statsOfFights() // show the opposite stats of fights
+        print("\(ind+1), please choose someone of the opposit team to fight with.")
+        let myTargetCharacter = opponentPlayer.arrayCharacter[userChoice() - 1]
+        character.fight(targetCharacter: myTargetCharacter)
+    }
+        
+    
   
     
     func battle() {
@@ -113,14 +131,25 @@ class Game {
                     print("Choose someone of your team to cure him")
                     magus.cure(character: arrayPlayer[i].arrayCharacter[characterChoice() - 1])
                 } else {
-                    
-                    
-                    
-            }
-            
-        } while true
+                print("===========================================")
+                    if i == 0 {
+                        let targetTeam = arrayPlayer[i+1]
+                        battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
+                        }
+                    } else {
+                        let targetTeam = arrayPlayer[i-1]
+                        battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
+                        
+                            
+                        }
+                        
+                    }
+               
         
-    
+   
+        
+
+       
     
 }
     
