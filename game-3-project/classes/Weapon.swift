@@ -19,6 +19,8 @@ class Weapon {
         self.nameWeapon = nameWeapon
         self.healing = healing
     }
+    
+    
 }
 
 class Sword: Weapon {
@@ -50,14 +52,14 @@ class Axe: Weapon {
 
 class MagicPotion:Weapon {
     init(){
-        super.init(nameWeapon: "Magic Potion", injuries: 0, healing: 0)
+        super.init(nameWeapon: "Magic Potion", injuries: 0, healing: 400)
         // That weapon has to give full defense bar to each character
     } 
 }
 
 class MagicMushroom:Weapon {
     init(){
-        super.init(nameWeapon: "Magic Mushroom", injuries: 0, healing: 0)
+        super.init(nameWeapon: "Magic Mushroom", injuries: 0, healing: 150)
     }
 }
 
