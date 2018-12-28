@@ -45,3 +45,24 @@ class Axe: Weapon {
         super.init(nameWeapon: "Axe", injuries: 50, healing: 0)
     }
 }
+
+// new weapon in the magic box
+
+class MagicPotion:Weapon {
+    init(){
+        super.init(nameWeapon: "Magic Potion", injuries: 0, healing: 0)
+        // That weapon has to give full defense bar to each character
+    } 
+}
+
+class MagicMushroom:Weapon {
+    init(){
+        super.init(nameWeapon: "Magic Mushroom", injuries: 0, healing: 0)
+    }
+}
+
+class Grenade:Weapon {
+    init() {
+        super.init(nameWeapon: "Grenade", injuries: 70, healing: 0)
+    }
+}
