@@ -16,7 +16,7 @@ class Character {
     var attackPoints: Int
     var weapon: Weapon
     let type: String
-    let fullLifeBar: Int
+    var fullLifeBar: Int
 
     
     // init values
@@ -99,6 +99,12 @@ class Colossus: Character {
 class Dwarf: Character {
     init(name: String) {
         super.init(nameCharacter: name, defensePoints: 70,attackPoints: 50, weapon:Axe(), type: "Dwarf", fullLifeBar: 70)
+    }
+}
+
+class GiantDwarf: Character {
+    init(name: String) {
+        super.init(nameCharacter: name, defensePoints: 150,attackPoints: 50, weapon:Axe(), type: "Giant Dwarf", fullLifeBar: 150)
     }
 }
 
