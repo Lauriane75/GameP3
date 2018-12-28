@@ -98,13 +98,15 @@ class Game {
                 if character is Dwarf {
                     print("You've find a magic mushroom")
                     print("Only Dwarfs like to eat it because it makes them much taller and bigger.")
-                    print("If you eat it now you will have a full 150 defense points")
+                    print("If you eat it now you will transform to a giant dwarf and have a full 150 defense points")
                     let newWeapon = MagicMushroom()
+                    character.weapon = newWeapon
+                    character.fullLifeBar = 150
+                   // the character becomes a GiantDwarf
                     } else { // If the character is a fighter or a Colossus he will find a grenade
                     print ("Wow! You've just dicovered a new weapon!")
                     print("You can use it during a battle on any character enemy. It will take  70 of his defense points.")
                     let newWeapon = Grenade()
-                    
                     character.weapon = newWeapon
                     
                 }
