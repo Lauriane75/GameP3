@@ -43,7 +43,7 @@ class Game {
         return currentCharacterChoice
     }
     
-    //func statsOfFights()
+    
     
     func showThe2Teams() {
         for i in 0..<arrayPlayer.count {
@@ -96,13 +96,14 @@ class Game {
             return heroChoicePlayer
     }
         
-    func battleDesignated(ind:Int, opponentPlayer:Player, character:Character) {
-       // opponentPlayer.statsOfFights() // show the opposite stats of fights
+   
+        
+    func battleDesignated(ind:Int,opponentPlayer:Player,character:Character) {
+        opponentPlayer.statsOfFights() // show the opposite stats of fights of the player's characters
         print("\(ind+1), please choose someone of the opposit team to fight with.")
         let myTargetCharacter = opponentPlayer.arrayCharacter[userChoice() - 1]
         character.fight(targetCharacter: myTargetCharacter)
-    }
-        
+        }
     
   
     
@@ -119,43 +120,28 @@ class Game {
             for i in 0..<arrayPlayer.count {
                 _ = arrayPlayer[i]
                 showThe2Teams()
-                print("===========================================")
+                print("\n")
                 print("\(i+1), it's your turn : ")
-                print("===========================================")
+                print("\n")
                 print("\(i+1), please choose a character to start the battle")
                 currentCharacter = arrayPlayer[i].arrayCharacter[characterChoice() - 1]
                 magicBox(character: currentCharacter) // launch the magic box with 3 new weapons inside (depending on the type of character)
                 if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not
-                    print("===========================================")
-                  //  arrayPlayer[i].statsOfFights() // show the stats of fights
+                    arrayPlayer[i].statsOfFights() // show the stats of fights
                     print("Choose someone of your team to cure him")
                     magus.cure(character: arrayPlayer[i].arrayCharacter[characterChoice() - 1])
                 } else {
-                print("===========================================")
-                    if i == 0 {
-                        let targetTeam = arrayPlayer[i+1]
-                        battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
-                        }
-                    } else {
-                        let targetTeam = arrayPlayer[i-1]
-                        battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
-                        
-                            
-                        }
-                        
-                    }
-               
-        
-   
-        
-
-       
-    
+                    let targetTeam = arrayPlayer[i+1]
+                    battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
+                    } //  } if  opponentPlayer.theCharacterIsDead() { return
+                }
+        } while true
+    }
 }
     
 
 
-    
+}
     
 
     
@@ -177,4 +163,5 @@ class Game {
     }
 }*/
    
+
 
