@@ -83,7 +83,7 @@ class Player {
             }
         }
     
-    // statsOfFight()
+
     
     
    func theCharacterIsDead() -> Bool {
