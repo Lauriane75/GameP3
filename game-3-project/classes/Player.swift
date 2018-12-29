@@ -18,14 +18,31 @@ func input() -> Int {
 
 
 class Player {
-    var team = [Character]() // will create a team of 3 character
     
     var namePlayer: String
-    var teamOfCharacters = [Character]()
+    public var arrayCharacter = [Character]() // will create a team of 3 character
     init(namePlayer: String) {
         self.namePlayer = namePlayer
     }
     
+   
+    func statsOfFights() {
+        for i in 0..<arrayCharacter.count {
+            let character = arrayCharacter[i]
+            if character.defensePoints >= 1 {
+                if character is Fighter || character is Colossus || character is Dwarf {
+                    print("Name : \(i+1) \(character.type) \(character.nameCharacter)\nDefense points : \(character.defensePoints)\nAttack points : \(character.weapon.injuries)")
+                } else if character is Magus {
+                    print("Name : \(i+1) \(character.type) \(character.nameCharacter)\nDefense points : \(character.defensePoints)\nHealing points : \(character.weapon.healing)")
+                }
+            } else {
+                print("\(i+1) The \(character.type) \(character.nameCharacter), is dead, find something to bring it back to life.")
+            }
+        }
+        
+    }
+    
+
     
     func createTeamDescription() {
         print("")
@@ -51,29 +68,45 @@ class Player {
             switch characterChoice { 
             case 1:
             print("You chose a Fighter")
-            team.append(Fighter(name: nameYourCharacter))
+            arrayCharacter.append(Fighter(name: nameYourCharacter))
             case 2:
             print("You chose a Magus.")
-            team.append(Magus(name: nameYourCharacter))
+            arrayCharacter.append(Magus(name: nameYourCharacter))
             case 3:
             print("You chose a Colossus.")
-            team.append(Colossus(name: nameYourCharacter))
+            arrayCharacter.append(Colossus(name: nameYourCharacter))
             case 4:
             print("You chose a Dwarf.")
-            team.append(Dwarf(name: nameYourCharacter))
+            arrayCharacter.append(Dwarf(name: nameYourCharacter))
             default:
             return
             }
         }
     
+    // statsOfFight()
+    
+    
+   func theCharacterIsDead() -> Bool {
+        var dead = false
+        for character in arrayCharacter {
+            if character.defensePoints <= 0 {
+                dead = true
+            } else {
+                return false
+            }
+        }
+        return dead
+    }
+   
+    
     
 }
+   
     
 class UniqueName {
         var charactersNameArray = [String]()
-        static let single = UniqueName() // launch singleton
+        static let single = UniqueName()
         
-        // determine if there are not two identical aliases
         func uniqueCharacterNames() -> String {
             var nameYourCharacter = ""
             repeat {
