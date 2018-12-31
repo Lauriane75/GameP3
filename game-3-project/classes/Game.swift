@@ -13,27 +13,17 @@ class Game {
     
      var arrayPlayer = [Player]() // Array of 2 players team1 & team2
 
-    func startGame() {
-     print("WELCOME TO THE MAGIC WORLD")
-        
-        for i in 1...2 { // ask about who is playing with a for i in loop
-            print("")
-            print ("Who is playing ?")
-            print ("Player \(i+1)")
-            print ("What's your name ?")
-            let player = Player(namePlayer: <#String#>)
-            let namePlayer = readLine()
-            // ask for the player name
-            print ("Name : \(String(describing: namePlayer))")
-            arrayPlayer.append(player) // add the player in an array
-        
-        }
-        
-        // phase de combat
-        //Fin du jeu
-        // récompense gagnant
-        
+    
+    
+    
+    func start() {
+        print ("Let's start the game!")
+        print ("Who wants to begin ?")
+        // switch player in array to choose who will begin
+       // showThe2Players() I have to create this func
     }
+    
+    
     
     func characterChoice() -> Int {
         var currentCharacterChoice = 0
@@ -49,13 +39,13 @@ class Game {
         for i in 0..<arrayPlayer.count {
             print("Who is going to win ? \(i+1)")
             _ = arrayPlayer[i]
-            // call the func statsOfFights()
+           // statsOfFights()
         }
     }
     
     
-    // lauch the magic box randomly
     
+    // lauch the magic box randomly
     func magicBox(character: Character) {
         let random = arc4random_uniform(<#UInt32#>)
         if character.defensePoints >= 1 {
@@ -84,52 +74,39 @@ class Game {
             }
         }
         
-    func userChoice() -> Int {
-        var heroChoicePlayer = 0
-            repeat{
-                if let data = readLine() { // input with readLine , unwrapping the optional and convert String to Data
-                if let dataToInt = Int(data) {
-                    heroChoicePlayer = dataToInt
-                    }
-                }
-            } while heroChoicePlayer != 1 && heroChoicePlayer != 2 && heroChoicePlayer != 3
-            return heroChoicePlayer
-    }
+    
         
    
         
     func battleDesignated(ind:Int,opponentPlayer:Player,character:Character) {
         opponentPlayer.statsOfFights() // show the opposite stats of fights of the player's characters
         print("\(ind+1), please choose someone of the opposit team to fight with.")
-        let myTargetCharacter = opponentPlayer.arrayCharacter[userChoice() - 1]
+        let myTargetCharacter = opponentPlayer.arrayCharacter[characterChoice() - 1]
         character.fight(targetCharacter: myTargetCharacter)
         }
     
+    
+            
   
     
-    func battle() {
-        print ("Let's start the game!")
-        print ("Who wants to begin ?")
-        // switch player in array to choose who will begin
-        showThe2Teams()
-        print ("\(Player(namePlayer: <#String#>)) is playing") //-1 or +1
-        // resume the 3 characters = call func()
-        
+   func battle() {
         var currentCharacter:Character //question variable: type
         repeat {
             for i in 0..<arrayPlayer.count {
                 _ = arrayPlayer[i]
-                showThe2Teams()
+                showThe2Teams() // this func is showing the 2 teams' stats of fights
                 print("\n")
                 print("\(i+1), it's your turn : ")
                 print("\n")
                 print("\(i+1), please choose a character to start the battle")
                 currentCharacter = arrayPlayer[i].arrayCharacter[characterChoice() - 1]
+                // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
                 magicBox(character: currentCharacter) // launch the magic box with 3 new weapons inside (depending on the type of character)
                 if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not
                     arrayPlayer[i].statsOfFights() // show the stats of fights
                     print("Choose someone of your team to cure him")
                     magus.cure(character: arrayPlayer[i].arrayCharacter[characterChoice() - 1])
+                    // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
                 } else {
                     let targetTeam = arrayPlayer[i+1]
                     battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
@@ -138,6 +115,33 @@ class Game {
         } while true
     }
 }
+    
+    func playGame() {
+        print("WELCOME TO THE MAGIC WORLD")
+        // setting up the game
+        for i in 1...2 { // ask about who is playing with a for i in loop
+            print("")
+            print ("Who is playing ?")
+            print ("Player \(i+1)")
+            print ("What's your name ?")
+            let player = Player(namePlayer: <#String#>)
+            let namePlayer = readLine()
+            // ask for the player name
+            print ("Name : \(String(describing: namePlayer))")
+            arrayPlayer.append(player) // add the player in an array
+        }
+        // Intro
+        start()
+        // fighting phase
+       // battle()
+        //End of game
+        
+        // winning reward
+        
+        
+    }
+    
+    
     
 
 
