@@ -39,9 +39,11 @@ class Game {
         for i in 0..<arrayPlayer.count {
             print("Who is going to win ? \(i+1)")
             _ = arrayPlayer[i]
-           // statsOfFights()
+          // statsOfFights()
         }
     }
+    
+    
     
     
     
@@ -60,8 +62,12 @@ class Game {
                         print("Only Dwarfs like to eat it because it makes them much taller and bigger.")
                         print("If you eat it now you will transform to a giant dwarf and have a full 150 defense points")
                         let newWeapon = MagicMushroom()
+                        let newCharacter = GiantDwarf(name:character.nameCharacter)
+
                         character.weapon = newWeapon
+                        character.nameCharacter = newCharacter.nameCharacter
                         character.fullLifeBar = 150
+                        
                         // the character becomes a GiantDwarf
                     } else { // If the character is a fighter or a Colossus he will find a grenade
                         print ("Wow! You've just dicovered a new weapon!")
@@ -149,23 +155,5 @@ class Game {
     
 
     
-
-// players1 or player2 ?
-/*repeat {
-    for i in 0..<arrayPlayer.count {
-        let team = arrayPlayer[i]
-        print("===========================================")
-        print("Player \(i+1), it's your turn : ")
-        print("===========================================")
-        // result
-        print("Player \(i+1), choose a character from your team :")
-        print ("Which character do you want to play with ?")
-        print ("Choose between 1, 2 or 3")
-        myFighter = arrayPlayer[i].character[characterChoice() - 1]
-        // random magic box
-        print("===========================================")
-    }
-}*/
-   
 
 
