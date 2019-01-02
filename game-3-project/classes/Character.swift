@@ -17,6 +17,8 @@ class Character {
     var weapon: Weapon
     let type: String
     var fullLifeBar: Int
+    
+    
 
     
     // init values
@@ -32,22 +34,35 @@ class Character {
     func fight(targetCharacter: Character) {
         if defensePoints > 0 {
             if targetCharacter.defensePoints <= 0 {
-                print("This guy is already over!")
+                print("This guy is already over!") // just in case of error system
             } else {
                 targetCharacter.defensePoints -= weapon.injuries  // to take the defense points of the character enemy
                 if targetCharacter.defensePoints <= 0 {
                     targetCharacter.defensePoints = 0
+                    print ("\(targetCharacter.type) \(targetCharacter.nameCharacter) just died")
                 }
-                print("Your \(type) \(nameCharacter) just hit \(targetCharacter.type) \(targetCharacter.nameCharacter)   whith his \(weapon.nameWeapon) taking \(weapon.injuries) defense points to him, .")
+                print(" Your \(type) \(nameCharacter) just hit the \(targetCharacter.type) \(targetCharacter.nameCharacter) with his \(weapon.nameWeapon) taking \(weapon.injuries) defense points to him.")
             }
         } else {
-            print("Sorry, you need to be revived! ")
+            print("Sorry, you need to be revived! ") // just in case of error system
+        }  // fighting in return if the opponent character is still alive
+        
+        if targetCharacter.defensePoints > 0 {
+            if defensePoints <= 0 {
+                print("This guy is already over!") // just in case of error system
+            } else {
+                defensePoints -= targetCharacter.weapon.injuries  // to take the defense points of the character enemy
+                if defensePoints <= 0 {
+                    defensePoints = 0
+                    print ("\(type) \(nameCharacter) just died")
+                }
+                print(" The \(targetCharacter.type) \(targetCharacter.nameCharacter) hit the \(type) \(nameCharacter) with his \(targetCharacter.weapon.nameWeapon) taking \(targetCharacter.weapon.injuries) defense points to him.")
+                }
+            }
         }
-    }
     
     
-    
-    
+  
 }
     
 
@@ -75,10 +90,11 @@ class Magus: Character {
                     character.defensePoints = character.fullLifeBar
                     print("Your \(character.type) \(character.nameCharacter) has all his life points.")
                 }
-                print("Your Magus just gave 50 defense points to your \(character.type) \(character.nameCharacter)") // spell's effects display
+                print("Your Magus just gave 50 defense points to your \(character.type) \(character.nameCharacter)")
+                print("Name : \(character.type) \(character.nameCharacter)\nDefense points : \(character.defensePoints)\nAttack points : \(character.weapon.injuries)")
             }
         } else {
-            print("Your Magus is dead, find an Elixir potion to bring it back to life.")
+            print("Your Magus is dead... Try to find an Elixir potion to bring it back to life.")
         }
     }
     
@@ -143,5 +159,6 @@ class GiantDwarf: Character {
     
     
     
+
 
 
