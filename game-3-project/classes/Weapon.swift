@@ -19,8 +19,6 @@ class Weapon {
         self.nameWeapon = nameWeapon
         self.healing = healing
     }
-    
-    
 }
 
 class Sword: Weapon {
@@ -50,21 +48,31 @@ class Axe: Weapon {
 
 // new weapon in the magic box
 
+// From the MagicBox => Can be use by a Magus on a character of the same team
 class MagicPotion:Weapon {
     init(){
         super.init(nameWeapon: "Magic Potion", injuries: 0, healing: 400)
         // That weapon has to give full defense bar to each character
     } 
 }
-
+// From the MagicBox => Can be use by a Dwarf on an opponent character
 class MagicMushroom:Weapon {
     init(){
         super.init(nameWeapon: "Magic Mushroom", injuries: 0, healing: 150)
     }
 }
 
+// From the MagicBox => Can be use by a Fighter or a Colossus on an opponent character
 class Grenade:Weapon {
     init() {
         super.init(nameWeapon: "Grenade", injuries: 70, healing: 0)
+    }
+}
+
+// From de Elixir => Walking dead's weapon on an opponent character
+// The Elixir is a magic potion which will transform one of the dead characters chose in the player own team to a walking dead character.
+class Bite:Weapon {
+    init() {
+        super.init(nameWeapon: "Bite", injuries: 50, healing: 0)
     }
 }
