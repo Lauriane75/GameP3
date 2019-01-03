@@ -20,12 +20,67 @@ func input() -> Int {
 class Player {
     
     var namePlayer: String
-    public var arrayCharacter = [Character]() // will create a team of 3 character
+  //  var coinsForWinner = 10
+
+    public var arrayCharacter = [Character]() // will create a team of 3 character by player
+
+    
     init(namePlayer: String) {
         self.namePlayer = namePlayer
     }
     
+    public var arrayDeadCharacter : [Character] = [Character]()
+
+    
+    // The elixir will appear randomly and permit to the player to bring one of his dead character to life
+    func elixir(character: Character) {
+        let random = arc4random_uniform(<#UInt32#>)
+        if character.defensePoints >= 1 {
+            if random <= 25 {
+                print ("You've just found an Elixir! \n Use it to bring one of your dead budy back to life")
+                //  let deadCharacter? = arrayDeadCharacter
+                
+                print ("choose one of your dead character to revived him")
+                
+                    for i in 0..<arrayDeadCharacter.count {
+                        print ("Choice \(i+1) \(arrayDeadCharacter.startIndex)")
+                    }
+                // comment chosir le character à réanimer
+             // let newCharacter = WalkingDead(name:character.nameCharacter)
+                }
+            }
+        }
+    
+    // To check each dead character add them to the arrayDeadCharacter
+    func theCharacterIsDead() -> Bool {
+        var dead = false
+        for character in arrayCharacter {
+            let deadCharacter = character
+            if character.defensePoints <= 0 {
+                dead = true
+                print("The \(character.type) \(character.nameCharacter) is dead.")
+                arrayDeadCharacter.append(deadCharacter)
+                // deleteDeadCharacter()
+            } else {
+                return false
+                print ("No ones died")
+        }
+    }
+    return dead
+}
+
+    // To delete the dead characters in the arrayCharacter
+    func deleteDeadCharacter() {
+        for deadCharacter in arrayDeadCharacter {
+            print("Here are heroes dead: \(deadCharacter.nameCharacter)")
+         // if let index = arrayCharacter.index(of:deadCharacter) {
+                print("Found heroe dead at index \(index)")
+              //  arrayDeadCharacter.remove(at: index)
+        }
+    }
+
    
+   // To show the results of each character
     func statsOfFights() {
         for i in 0..<arrayCharacter.count {
             let character = arrayCharacter[i]
@@ -35,12 +90,12 @@ class Player {
                 } else if character is Magus {
                     print("Name : \(i+1) \(character.type) \(character.nameCharacter)\nDefense points : \(character.defensePoints)\nHealing points : \(character.weapon.healing)")
                 }
-            } else {
+            } else { // If the character is <= 0
                 print("\(i+1) The \(character.type) \(character.nameCharacter), is dead, find something to bring it back to life.")
             }
         }
-        
     }
+    
     
 
     
@@ -55,9 +110,11 @@ class Player {
         print("Choose a character by typing a number between 1 and 4 ========")
     }
     
+        
+        
    public func createYourTeam() {
         for _ in 1...3 { // ask 3 times for 3 characters in the team
-            let characterChoice = 1
+            let characterChoice = input()
             repeat {
                 createTeamDescription()   // call the function describing character's properties
         
@@ -85,24 +142,10 @@ class Player {
     
 
     
-    
-   func theCharacterIsDead() -> Bool {
-        var dead = false
-        for character in arrayCharacter {
-            if character.defensePoints <= 0 {
-                dead = true
-            } else {
-                return false
-            }
-        }
-        return dead
-    }
+} // End of Player class
    
     
-    
-}
-   
-    
+// To check oi the name chose is a unique available
 class UniqueName {
         var charactersNameArray = [String]()
         static let single = UniqueName()
@@ -134,190 +177,3 @@ class UniqueName {
     
 
 
-
-    /*var players = [Player1, Player2]
-    var playerName: String // Name of the player
-    var teamName : String // Name of the team
-    
-    init(playerName: String, teamName: String) {
-    }
-
-    
-    
-    // Ask for who is playing
-        repeat {
-        return "Who is playing ?"
-        return "1. Player 1"
-        return "2. Player 2"
-    // Choice 1 or 2 = Player 1 or Player2
-        PlayerChoice = input()
-        } while PlayerChoice < 0 && PlayerChoice > 2
-    
-        var PlayerChoice: PlayerType!
-    
-        switch PlayerChoice {
-        case 1:
-        PlayerChoice = .Player1
-        case 2:
-        PlayerChoice = .Player2
-        default: break
-        }
-    
-    // Ask for the name of the player
-        func nameThePlayer() -> String {
-            return "What's your name ?"
-            let playerName = readLine()
-            return "Player name : \(String(describing: playerName))"
-        }
-    
-    // Ask for the name of the team
-        func nameTheTeam() -> String {
-            return "What's your team name ?"
-            let teamName = readLine()
-            return "Team name : \(String(describing: teamName))"
-        }
-    
-    // Ask for the first character
-        repeat {
-        return "Choose your first character"
-        return "1. Fighter"
-        return "2. Magus"
-        return "3. Colossus"
-        return "4. Dwarf"
-        character1 = input()
-        } while character1 < 0 && character1 > 4
-    
-        print() //pq, j'ai trouvé ça ds la correction du TP?
-    
-        //We are enumerating every character type
-        var characterType1: CharacterType!
-        switch character1 {
-        case 1:
-        characterType1 = .Fighter
-        case 2:
-        characterType1 = .Magus
-        case 3:
-        characterType1 = .Colossus
-        case 4:
-        characterType1 = .Dwarf
-    
-        default: break
-        }
-    
-    // Ask for the second character
-        repeat {
-        return "Choose your second character"
-        return "1. Fighter"
-        return "2. Magus"
-        return "3. Colossus"
-        return "4. Dwarf"
-        character2 = input()
-        } while character2 < 0 && character2 > 4
-    
-        print()
-    
-        //We are enumerating every character type
-        var characterType2: CharacterType!
-    
-        switch character2 {
-        case 1:
-        characterType2 = .Fighter
-        case 2:
-        characterType2 = .Magus
-        case 3:
-        characterType2 = .Colossus
-        case 4:
-        characterType2 = .Dwarf
-    
-        default: break
-        }
-    
-    // Ask for the third character
-        repeat {
-        return "Choose your third character"
-        return "1. Fighter"
-        return "2. Magus"
-        return "3. Colossus"
-        return "4. Dwarf"
-        character3 = input()
-        } while character3 < 0 && character3 > 4
-    
-        print() //pq ?
-    
-        //We are enumerating every character type
-        var characterType3: CharacterType!
-    
-        switch character3 {
-        case 1:
-        characterType3 = .Fighter
-        case 2:
-        characterType3 = .Magus
-        case 3:
-        characterType3 = .Colossus
-        case 4:
-        characterType3 = .Dwarf
-    
-        default: break
-        }
-    
-        public func nameYourCharacters() -> String {
-            return "Name your 3 characters"
-            let nameCharacter1 = readLine()
-            return "nameCharacter1 : \(String(describing: nameCharacter1)) : "
-            let nameCharacter2 = readLine()
-            return "nameCharacter2 : \(String(describing: nameCharacter2)) : "
-            let nameCharacter3 = readLine()
-            return "nameCharacter3 : \(String(describing: nameCharacter3)) : "
-        }
-    
-        // Choice of the current character to fight
-        repeat {
-    
-        return nameCharacter1
-        return nameCharacter2
-        return nameCharacter3
-        CurrentCharacterChoice = input()
-        } while CurrentCharacterChoice < 0 && PlayerChoice > 3
-    
-        var CurrentCharacterChoice: CurrentCharacter!
-    
-        switch CurrentCharacterChoice {
-        case 1:
-        CurrentCharacterChoice = .nameCharacter1
-        case 2:
-        CurrentCharacterChoice = .nameCharacter2
-        case 3:
-        CurrentCharacterChoice = .nameCharacter3
-    
-        default: break
-        }
-    }
-}
-
-
-enum CurrentCharacter {
-    case nameCharacter1, nameCharacter2, nameCharacter3
-   
-}
-    
-    
-class Player1 : Players {
-    
-    // l'objet du perso du jouer 1
-   var currentCharacter1 = Player1(CurrentCharacterChoice)
-    
-
-    
-}
-    
-    
-class Player2 : Players {
-    
-    // l'objet du perso du jouer 2
-    var currentCharacter2 = Player2(CurrentCharacterChoice)
-}
-    */
-    
-
-
- /**/
