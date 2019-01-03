@@ -15,12 +15,6 @@ class Game {
 
     
     
-
-    
-   
-    
-    
-    
     func characterChoice() -> Int {
         var currentCharacterChoice = 0
         repeat{
@@ -30,7 +24,7 @@ class Game {
     }
     
     
-    
+    // To show the stats of fights of the 2 teams at the beginning of each battle
     func showThe2Teams() {
         for i in 0..<arrayPlayer.count {
             print("Who is going to win ? \(i+1)")
@@ -39,23 +33,19 @@ class Game {
         }
     }
     
-    
-    
-    
-    
-    
     // lauch the magic box randomly
+    // Magic Potion or Magic Mushroom or Grenade
     func magicBox(character: Character) {
         let random = arc4random_uniform(<#UInt32#>)
         if character.defensePoints >= 1 {
-            if random <= 25 {
+            if random <= 20 {
                 if character is Magus {
                     print("Crazy! You've found a magic potion!")
                     print("Only a magus can give this potion to one of your buddy. It will give 100% of his defense points")
                     let newWeapon = MagicPotion()
                     character.weapon = newWeapon
                     if character is Dwarf {
-                        print("You've find a magic mushroom")
+                        print("You've found a magic mushroom")
                         print("Only Dwarfs like to eat it because it makes them much taller and bigger.")
                         print("If you eat it now you will transform to a giant dwarf and have a full 150 defense points")
                         let newWeapon = MagicMushroom()
@@ -64,6 +54,8 @@ class Game {
                         character.weapon = newWeapon
                         character.nameCharacter = newCharacter.nameCharacter
                         character.fullLifeBar = 150
+                        
+                        // question : comment on change le 150 en propriété de GiantDwarf
                         
                         // the character becomes a GiantDwarf
                     } else { // If the character is a fighter or a Colossus he will find a grenade
@@ -77,23 +69,15 @@ class Game {
             }
         }
         
-       
-        
-    
-        
-   
-        
     func battleDesignated(ind:Int,opponentPlayer:Player,character:Character) {
         opponentPlayer.statsOfFights() // show the opposite stats of fights of the player's characters
         print("\(ind+1), please choose someone of the opposit team to fight with.")
         let myTargetCharacter = opponentPlayer.arrayCharacter[characterChoice() - 1]
         character.fight(targetCharacter: myTargetCharacter)
+        print ("Name : \(character.type) \(character.nameCharacter)   Defense points :\(character.defensePoints)\nName : \(myTargetCharacter.type)    Defense points: \(myTargetCharacter.nameCharacter)")
         }
     
-    
-            
-  
-    
+        // to cure or to fight character vs character
    func battle() {
         var currentCharacter:Character //question variable: type
         repeat {
@@ -109,32 +93,28 @@ class Game {
                 currentCharacter = arrayPlayer[i].arrayCharacter[characterChoice() - 1]
                 // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
                 magicBox(character: currentCharacter) // launch the magic box with 3 new weapons inside (depending on the type of character)
-                if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not
+            if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not => It's an optional because maybe the player wouldn't choose a Magus to create his team
                 arrayPlayer[i].statsOfFights() // show the stats of fights
                 print("Choose someone of your team to cure him")
                 magus.cure(character: arrayPlayer[i].arrayCharacter[characterChoice() - 1])
                     // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
-                } else {
-                    let targetTeam = arrayPlayer[i+1]
-                    battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
-                    }
-                }
+            } else {
+                let targetTeam = arrayPlayer[i+1]
+                battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
+                } // ajouter si quelqu'un meurt ici
+            }
         } while true
-    }
+    } // boucle tant que tous les (trois) perso d'un des player ne sont pas mort
 }
     
-    
+    // introduction
     func start() {
         print ("Let's start the game!")
-        print ("Who wants to begin ?")
-        
-        // switch player in array to choose who will begin
-        // showThe2Players() I have to create this func
-        
-        //let startBattle = battle()
+        print ("Who's gonna play first ? Choose between 1 and 2")
     }
     
     func playGame() {
+        // Intro
         print("WELCOME TO THE MAGIC WORLD")
         // setting up the game
         for i in 1...2 { // ask about who is playing with a for i in loop
@@ -142,15 +122,10 @@ class Game {
            let namePlayer = nameYourPlayer()
             arrayPlayer.append(namePlayer) // add the player in an array
         }
-        // Intro
-        start()
         // fighting phase
-        //battle()
+        // battle()
         //End of game
-        
-        // winning reward
-        
-        
+        winner()
     }
     
     func nameYourPlayer() -> Player {
@@ -164,17 +139,15 @@ class Game {
         let player = Player(namePlayer: playerName)
         player.createYourTeam()
         return player
-        
-        print ("Who's gonna play first ? Choose between 1 and 2")
+        start()
         // Show the 2 players
         for i in 0..<arrayPlayer.count {
             print ("\(i+1) \(Player(namePlayer: playerName))")
         }
         choosePlayer()
-        
     }
     
-    
+    // switch of the 2 players
     func choosePlayer() {
         let playerChoice = input()
        
@@ -186,19 +159,15 @@ class Game {
         default:
             return
         }
-        
-        
     }
-
-    
-    
-   
     
    func winner() {
         for i in 0..<arrayPlayer.count {
             let player = arrayPlayer[i]
             if !player.theCharacterIsDead() {
-                print("The winner is\(i+1)")
+              //  print("The winner is\(i+1), you won \(coinsForWinner) coins")
+                
+            
                 // faire gagner une récompense pour pouvoir recommencer une partie
             }
         }
