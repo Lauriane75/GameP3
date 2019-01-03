@@ -11,17 +11,8 @@ import Foundation
 
 class Game {
     
-     var arrayPlayer = [Player]() // Array of 2 players team1 & team2
+     var arrayPlayer = [Player]() // Array of 2 players player1 & player2
 
-    
-    
-    
-    func start() {
-        print ("Let's start the game!")
-        print ("Who wants to begin ?")
-        // switch player in array to choose who will begin
-       // showThe2Players() I have to create this func
-    }
     
     
 
@@ -43,10 +34,11 @@ class Game {
     func showThe2Teams() {
         for i in 0..<arrayPlayer.count {
             print("Who is going to win ? \(i+1)")
-            _ = arrayPlayer[i]
-          // statsOfFights()
+           let players = arrayPlayer[i]
+           players.statsOfFights()
         }
     }
+    
     
     
     
@@ -131,6 +123,17 @@ class Game {
     }
 }
     
+    
+    func start() {
+        print ("Let's start the game!")
+        print ("Who wants to begin ?")
+        
+        // switch player in array to choose who will begin
+        // showThe2Players() I have to create this func
+        
+        //let startBattle = battle()
+    }
+    
     func playGame() {
         print("WELCOME TO THE MAGIC WORLD")
         // setting up the game
@@ -161,15 +164,51 @@ class Game {
         let player = Player(namePlayer: playerName)
         player.createYourTeam()
         return player
+        
+        print ("Who's gonna play first ? Choose between 1 and 2")
+        // Show the 2 players
+        for i in 0..<arrayPlayer.count {
+            print ("\(i+1) \(Player(namePlayer: playerName))")
+        }
+        choosePlayer()
+        
     }
+    
+    
+    func choosePlayer() {
+        let playerChoice = input()
+       
+        switch playerChoice {
+        case 1:
+            _ = arrayPlayer.startIndex
+        case 2:
+            _ = arrayPlayer.endIndex
+        default:
+            return
+        }
         
         
-    
-    
-    
+    }
 
+    
+    
+   
+    
+   func winner() {
+        for i in 0..<arrayPlayer.count {
+            let player = arrayPlayer[i]
+            if !player.theCharacterIsDead() {
+                print("The winner is\(i+1)")
+                // faire gagner une récompense pour pouvoir recommencer une partie
+            }
+        }
+    }
+    
+    
+    
 
 }
+
     
 
     
