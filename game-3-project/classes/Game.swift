@@ -26,10 +26,12 @@ class Game {
     
     // To show the stats of fights of the 2 teams at the beginning of each battle
     func showThe2Teams() {
-        for i in 0..<arrayPlayer.count {
-            print("Who is going to win ? \(i+1)")
-           let players = arrayPlayer[i]
-           players.statsOfFights()
+        print("Who is going to win ?")
+        for (_, item) in arrayPlayer.enumerated() {
+            print ("\(item.namePlayer)?")
+            print ("or")
+    
+           item.statsOfFights()
         }
     }
     
@@ -79,17 +81,17 @@ class Game {
     
         // to cure or to fight character vs character
    func battle() {
-        var currentCharacter:Character //question variable: type
+        var currentCharacter:Character // the current is a character type
         repeat {
-            for i in 0..<arrayPlayer.count {
+            for (i, item) in arrayPlayer.enumerated() {
                 _ = arrayPlayer[i]
                 showThe2Teams() // this func is showing the 2 teams' stats of fights
                 print("\n")
-                print("\(i+1), it's your turn : ")
+                print("\(i+1) \(item.namePlayer), it's your turn : ")
                 print("\n")
-                print("\(i+1), please choose a character to start the battle")
+                print("\(i+1), \(item.namePlayer) please choose a character to start the battle")
                 arrayPlayer[i].statsOfFights()
-                print("\(i+1), please choose a number between 1 and 3")
+                print("\(i+1), \(item.namePlayer) please choose a number between 1 and 3")
                 currentCharacter = arrayPlayer[i].arrayCharacter[characterChoice() - 1]
                 // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
                 magicBox(character: currentCharacter) // launch the magic box with 3 new weapons inside (depending on the type of character)
@@ -105,7 +107,38 @@ class Game {
             }
         } while true
     } // boucle tant que tous les (trois) perso d'un des player ne sont pas mort
-}
+
+    
+    func playerLost() -> [Character] {
+        var count = 0
+        // To link the each arrayPlayer with each arrayCharacter
+        for (_, item) in arrayPlayer.enumerated() {
+            for (_, it) in item.arrayCharacter.enumerated() {
+                if it.defensePoints <= 0 {
+                    print ("\(it.nameCharacter) just died")
+                    let deadCharacter = it
+                    count += 1
+                    // To add each dead character to the arrayDeadCharacter
+                    item.arrayDeadCharacter.append(deadCharacter)
+                   // To filter each dead character from the arrayCharacter
+                    let deadCharacters = item.arrayCharacter.filter { $0.defensePoints <= 0 }
+                    return deadCharacters
+                }
+            }
+            if count == 3 {
+                print ("\(item.namePlayer) lost.)")
+                print ("GAME OVER !")
+            }
+        }
+        
+    }
+        
+    
+    
+    
+
+    
+    
     
     // introduction
     func start() {
@@ -123,7 +156,7 @@ class Game {
             arrayPlayer.append(namePlayer) // add the player in an array
         }
         // fighting phase
-        // battle()
+        battle()
         //End of game
         winner()
     }
@@ -169,14 +202,15 @@ class Game {
                 
             
                 // faire gagner une récompense pour pouvoir recommencer une partie
+                }
             }
         }
+    
     }
-    
-    
-    
 
 }
+
+
 
     
 
