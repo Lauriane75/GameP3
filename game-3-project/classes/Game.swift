@@ -82,6 +82,7 @@ class Game {
         // to cure or to fight character vs character
    func battle() {
         var currentCharacter:Character // the current is a character type
+    
         repeat {
             for (i, item) in arrayPlayer.enumerated() {
                 _ = arrayPlayer[i]
@@ -134,16 +135,9 @@ class Game {
     }
         
     
-    
-    
-
-    
-    
-    
     // introduction
     func start() {
         print ("Let's start the game!")
-        print ("Who's gonna play first ? Choose between 1 and 2")
     }
     
     func playGame() {
@@ -158,7 +152,7 @@ class Game {
         // fighting phase
         battle()
         //End of game
-        winner()
+       // winner()
     }
     
     func nameYourPlayer() -> Player {
@@ -177,24 +171,11 @@ class Game {
         for i in 0..<arrayPlayer.count {
             print ("\(i+1) \(Player(namePlayer: playerName))")
         }
-        choosePlayer()
     }
     
-    // switch of the 2 players
-    func choosePlayer() {
-        let playerChoice = input()
-       
-        switch playerChoice {
-        case 1:
-            _ = arrayPlayer.startIndex
-        case 2:
-            _ = arrayPlayer.endIndex
-        default:
-            return
-        }
-    }
+
     
-   func winner() {
+  /* func winner() {
         for i in 0..<arrayPlayer.count {
             let player = arrayPlayer[i]
             if !player.theCharacterIsDead() {
@@ -204,7 +185,7 @@ class Game {
                 // faire gagner une récompense pour pouvoir recommencer une partie
                 }
             }
-        }
+        } */
     
     }
 
