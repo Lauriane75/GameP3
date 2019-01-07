@@ -9,11 +9,13 @@
 import Foundation
 
 
+
 class Game {
     
      var arrayPlayer = [Player]() // Array of 2 players player1 & player2
-
     
+    
+
     
     func characterChoice() -> Int {
         var currentCharacterChoice = 0
@@ -90,9 +92,8 @@ class Game {
                 print("\n")
                 print("\(i+1) \(item.namePlayer), it's your turn : ")
                 print("\n")
-                print("\(i+1), \(item.namePlayer) please choose a character to start the battle")
+                print("\(i+1), \(item.namePlayer) please choose a character to start the battle, typing a number between 1 and 3")
                 arrayPlayer[i].statsOfFights()
-                print("\(i+1), \(item.namePlayer) please choose a number between 1 and 3")
                 currentCharacter = arrayPlayer[i].arrayCharacter[characterChoice() - 1]
                 // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
                 magicBox(character: currentCharacter) // launch the magic box with 3 new weapons inside (depending on the type of character)
@@ -106,33 +107,41 @@ class Game {
                 battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
                 } // ajouter si quelqu'un meurt ici
             }
-        } while true
-    } // boucle tant que tous les (trois) perso d'un des player ne sont pas mort
+        } while playerLost()  //  } while battle.playerLost() -> false
+    }
 
     
-    func playerLost() -> [Character] {
-        var count = 0
+    func playerLost() -> Bool {
+        var counts = 0
+        var someoneLost = false
         // To link the each arrayPlayer with each arrayCharacter
-        for (_, item) in arrayPlayer.enumerated() {
+        for (index, item) in arrayPlayer.enumerated() {
             for (_, it) in item.arrayCharacter.enumerated() {
                 if it.defensePoints <= 0 {
                     print ("\(it.nameCharacter) just died")
-                    let deadCharacter = it
-                    count += 1
+                    _ = it
+                    counts += 1
                     // To add each dead character to the arrayDeadCharacter
-                    item.arrayDeadCharacter.append(deadCharacter)
+                 //   item.arrayDeadCharacter.append(deadCharacter)
                    // To filter each dead character from the arrayCharacter
-                    let deadCharacters = item.arrayCharacter.filter { $0.defensePoints <= 0 }
-                    return deadCharacters
+                    if item.arrayCharacter.firstIndex(where: { $0.defensePoints <= 0 }) != nil {
+                        item.arrayCharacter.remove(at: index)
+                        }
+                    // To show the looser
+                    if counts == 3 {
+                        print ("\(item.namePlayer) lost.)")
+                        print ("\(index+1) \(item.namePlayer) won ! \n\(item.namePlayer) just won 10 coins !")
+                
+                        print ("GAME OVER !")
+                        someoneLost = true
+                    }
                 }
             }
-            if count == 3 {
-                print ("\(item.namePlayer) lost.)")
-                print ("GAME OVER !")
-            }
         }
-        
+        return  someoneLost
     }
+     
+     
         
     
     // introduction
@@ -152,7 +161,7 @@ class Game {
         // fighting phase
         battle()
         //End of game
-       // winner()
+       
     }
     
     func nameYourPlayer() -> Player {
@@ -174,18 +183,7 @@ class Game {
     }
     
 
-    
-  /* func winner() {
-        for i in 0..<arrayPlayer.count {
-            let player = arrayPlayer[i]
-            if !player.theCharacterIsDead() {
-              //  print("The winner is\(i+1), you won \(coinsForWinner) coins")
-                
-            
-                // faire gagner une récompense pour pouvoir recommencer une partie
-                }
-            }
-        } */
+
     
     }
 
