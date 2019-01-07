@@ -107,40 +107,49 @@ class Game {
                 battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
                 } // ajouter si quelqu'un meurt ici
             }
-        } while playerLost()  //  } while battle.playerLost() -> false
+        } while true
+ //   playerLost()  //  } while battle.playerLost() -> false
     }
-
-    
-    func playerLost() -> Bool {
-        var counts = 0
-        var someoneLost = false
-        // To link the each arrayPlayer with each arrayCharacter
-        for (index, item) in arrayPlayer.enumerated() {
-            for (_, it) in item.arrayCharacter.enumerated() {
-                if it.defensePoints <= 0 {
-                    print ("\(it.nameCharacter) just died")
-                    _ = it
-                    counts += 1
-                    // To add each dead character to the arrayDeadCharacter
-                 //   item.arrayDeadCharacter.append(deadCharacter)
-                   // To filter each dead character from the arrayCharacter
-                    if item.arrayCharacter.firstIndex(where: { $0.defensePoints <= 0 }) != nil {
-                        item.arrayCharacter.remove(at: index)
-                        }
-                    // To show the looser
-                    if counts == 3 {
-                        print ("\(item.namePlayer) lost.)")
-                        print ("\(index+1) \(item.namePlayer) won ! \n\(item.namePlayer) just won 10 coins !")
-                
-                        print ("GAME OVER !")
-                        someoneLost = true
-                    }
-                }
+        
+        // To show dead characters of each player
+        func showDeadCharacter() {
+            for (_, item) in arrayPlayer.enumerated() {
+                for (_, it) in item.arrayDeadCharacter.enumerated() {
+                    print ("Name: \(it.nameCharacter)\nType: \(it.type)\nDefense: \(it.defensePoints)\nAttack: \(it.attackPoints)")
             }
         }
-        return  someoneLost
     }
+        
+    
+
+    
+   
+        func playerLost() -> [Character] {
+            var count = 0
+            // To link the each arrayPlayer with each arrayCharacter
+            for (_, item) in arrayPlayer.enumerated() {
+                for (_, it) in item.arrayCharacter.enumerated() {
+                    if it.defensePoints <= 0 {
+                        print ("\(it.nameCharacter) just died")
+                        let deadCharacter = it
+                        count += 1
+                        // To add each dead character to the arrayDeadCharacter
+                        item.arrayDeadCharacter.append(deadCharacter)
+                        // To filter each dead character from the arrayCharacter
+                        let deadCharacters = item.arrayCharacter.filter { $0.defensePoints <= 0 }
+                        return deadCharacters
+                    }
+                }
+                if count == 3 {
+                    print ("\(item.namePlayer) lost.)")
+                    print ("GAME OVER !")
+                }
+            }
+            
+        }
      
+        
+    
      
         
     
@@ -187,7 +196,7 @@ class Game {
     
     }
 
-}
+} // End of class Game
 
 
 
