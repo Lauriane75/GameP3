@@ -8,78 +8,31 @@
 
 import Foundation
 
-func input() -> Int {
-    let strData = readLine();
-    
-    return Int(strData!)!
-}
-    
-
-
 
 class Player {
     
     var namePlayer: String
   //  var coinsForWinner = 10
 
-    public var arrayCharacter = [Character]() // will create a team of 3 character by player
+    public var arrayCharacter = [Character]() // will create a team of 3 character by player only characters alive
+   
 
-    
+
     init(namePlayer: String) {
         self.namePlayer = namePlayer
     }
     
-    public var arrayDeadCharacter : [Character] = [Character]()
+  public var arrayDeadCharacter : [Character] = [Character]()
 
     
-    // The elixir will appear randomly and permit to the player to bring one of his dead character to life
-    func elixir(character: Character) {
-        let random = arc4random_uniform(<#UInt32#>)
-        if character.defensePoints >= 1 {
-            if random <= 25 {
-                print ("You've just found an Elixir! \n Use it to bring one of your dead budy back to life")
-                //  let deadCharacter? = arrayDeadCharacter
-                
-                print ("choose one of your dead character to revived him")
-                
-                    for i in 0..<arrayDeadCharacter.count {
-                        print ("Choice \(i+1) \(arrayDeadCharacter.startIndex)")
-                    }
-                // comment chosir le character à réanimer
-             // let newCharacter = WalkingDead(name:character.nameCharacter)
-                }
-            }
-        }
+  /*  public func arrayDeadCharacter() -> [Character] {
+        let deadCharacters = arrayCharacter.filter { $0.defensePoints <= 0 }
+        return deadCharacters
+    }*/
+
+
     
-    // To check each dead character add them to the arrayDeadCharacter
-    func theCharacterIsDead() -> Bool {
-        var dead = false
-        for character in arrayCharacter {
-            let deadCharacter = character
-            if character.defensePoints <= 0 {
-                dead = true
-                print("The \(character.type) \(character.nameCharacter) is dead.")
-                arrayDeadCharacter.append(deadCharacter)
-                // deleteDeadCharacter()
-            } else {
-                return false
-                print ("No ones died")
-        }
-    }
-    return dead
-}
-
-    // To delete the dead characters in the arrayCharacter
-    func deleteDeadCharacter() {
-        for deadCharacter in arrayDeadCharacter {
-            print("Here are heroes dead: \(deadCharacter.nameCharacter)")
-         // if let index = arrayCharacter.index(of:deadCharacter) {
-                print("Found heroe dead at index \(index)")
-              //  arrayDeadCharacter.remove(at: index)
-        }
-    }
-
-   
+    
    // To show the results of each character
     func statsOfFights() {
         for i in 0..<arrayCharacter.count {
@@ -100,26 +53,27 @@ class Player {
 
     
     func createTeamDescription() {
-        print("")
-        print("==============================================================")
-        print("1 - Fighter   - Defense: 100 - Attack: 10 - Magic Healing: +0")
-        print("2 - Magus  - Defense: 300 - Attack: 0 - Magic Healing: +50")
-        print("3 - Colossus    - Defense: 400  - Attack: 5 - Magic Healing: +0")
-        print("4 - Dwarft  - Defense: 50  - Attack  : 50 - Magic Healing: +0")
-        print("==============================================================")
-        print("Choose a character by typing a number between 1 and 4 ========")
+        print("______________________________________________________")
+        print("1 = Fighter   - Defense: 100 - Attack: 10 - Magic Healing: 0")
+        print("2 = Magus  - Defense: 300 - Attack: 0 - Magic Healing: +50")
+        print("3 = Colossus    - Defense: 400  - Attack: 5 - Magic Healing: 0")
+        print("4 = Dwarft  - Defense: 70  - Attack  : 50 - Magic Healing: 0")
+        print("______________________________________________________")
+        print("Choose a character by typing a number between 1 and 4 ")
     }
     
         
-        
    public func createYourTeam() {
         for _ in 1...3 { // ask 3 times for 3 characters in the team
-            let characterChoice = input()
+            var characterChoice  = 0
             repeat {
                 createTeamDescription()   // call the function describing character's properties
-        
+                if let strData = readLine() {
+                    if let strData = Int(strData) {
+                        characterChoice = strData
+                    }
+                }
             } while characterChoice < 1 && characterChoice > 4
-            
             let nameYourCharacter = UniqueName.single.uniqueCharacterNames()
            
             switch characterChoice { 
@@ -139,36 +93,66 @@ class Player {
             return
             }
         }
+
+ 
+
+    func zombiePotion(character: Character) {
+        let random = arc4random_uniform(100)
+        if character.defensePoints >= 1 {
+            if random <= 40 {
+                print ("You've just found a Zombie Potion!\nUse it to bring your last dead budy back to life and transform him in a walking dead")
+                showDeadCharacters()
+                var dead = lastDeadCharacter()
+                if dead != nil {
+                    dead = WalkingDead(name:lastDeadCharacter()?.nameCharacter ?? "Zombie")
+                    print ("Great ! Your \(String(describing: lastDeadCharacter()?.type)) \(String(describing: lastDeadCharacter()?.nameCharacter)) got back to life and has transformed in zombie ")
+                    _ = dead
+                    print("Welcome to your new character \(String(describing: lastDeadCharacter()?.nameCharacter)) the walking dead")
+                } else {
+                    print ("Sorry you don't have any dead guy.")
+                }
+            }
+            
+        }
+    }
+    
+    func magicElixir(ind:Int,currentPlayer:Player,character:Character) {
+        let random = arc4random_uniform(100)
+        if character.defensePoints >= 1 {
+            if random <= 25 {
+                print ("You've just found an Elixir!\nUse it to bring your last dead budy back to life")
+                showDeadCharacters()
+                if lastDeadCharacter() != nil {
+                    lastDeadCharacter()?.defensePoints = character.fullLifeBar
+                    print ("Great ! Your \(String(describing: lastDeadCharacter()?.type)) \(String(describing: lastDeadCharacter()?.nameCharacter)) got back to life! ")
+                } else {
+                    print ("Sorry you don't have any dead guy.")
+                }
+            }
+        }
+    }
+    
+    func lastDeadCharacter() -> Character? {
+        return arrayDeadCharacter.last
+    }
+}
+   
+    // To show dead characters of each player
+    func showDeadCharacters() {
+        print ("Here are all the dead characters")
+        for (_, it) in arrayDeadCharacter.enumerated() {
+            print ("Name: \(it.nameCharacter)\nType: \(it.type)\nDefense: \(it.defensePoints)\nAttack: \(it.attackPoints)")
+        }
+    }
     
 
     
 } // End of Player class
    
     
-// To check oi the name chose is a unique available
-class UniqueName {
-        var charactersNameArray = [String]()
-        static let single = UniqueName()
-        
-        func uniqueCharacterNames() -> String {
-            var nameYourCharacter = ""
-            repeat {
-                print("What's your character's name : ")
-                nameYourCharacter = readLine()!
-               
-                    if charactersNameArray.contains(nameYourCharacter) { // if the array already contains the same name
-                        print("This character's name '\(nameYourCharacter)' does already exist. Can you find a new name ?")
-                        nameYourCharacter = readLine()!
-                    } else {
-                        charactersNameArray.append(nameYourCharacter) // if not, the name can be added to the character's name array
-                        print("Perfect! You are fine. ")
-                    }
-            } while nameYourCharacter == ""
-            return nameYourCharacter
-        }
-    }
-}
-    
+
+
+
     
 
         
