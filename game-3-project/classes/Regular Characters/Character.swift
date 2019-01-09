@@ -7,8 +7,6 @@
 //
 import Foundation
 
-
-
 class Character {
     // default values
     var nameCharacter: String
@@ -17,9 +15,6 @@ class Character {
     var weapon: Weapon
     let type: String
     var fullLifeBar: Int
-    
-    
-
     
     // init values
     init(nameCharacter: String,defensePoints: Int,attackPoints: Int,weapon: Weapon, type: String, fullLifeBar: Int) {
@@ -64,61 +59,8 @@ class Character {
     
     
   
-}
-    
+} // End of class character
 
-class Fighter: Character {
-    init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 100,attackPoints: 10, weapon:Sword(), type: "Fighter", fullLifeBar: 100)
-    }
-}
-
-
-class Magus: Character {
-    init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 300,attackPoints: 0, weapon:MagicHealing(), type: "Magus", fullLifeBar: 300)
-    }
-    
-    
-    // the action of the magus to heal one of the caracter of his own team
-    func cure(character: Character) {
-        if defensePoints > 0 {
-            if character.defensePoints <= 0 {
-                print("I'm sorry this buddy just died")
-            } else {
-                character.defensePoints += weapon.healing  // give 50 life points to the character designated
-                print("Your Magus just gave 50 defense points to your \(character.type) \(character.nameCharacter)")
-                print("Name : \(character.type) \(character.nameCharacter)\nDefense points : \(character.defensePoints)\nAttack points : \(character.weapon.injuries)")
-                if character.defensePoints >= character.fullLifeBar { // to block the defense points at 100% for each character
-                    character.defensePoints = character.fullLifeBar
-                    print("Your \(character.type) \(character.nameCharacter) has all his life points.")
-                    }
-                }
-            } else {
-                print("Your Magus is dead... Try to find an Elixir potion to bring it back to life.")
-            }
-        }
-    
-} // End of Magus Class
-
-
-class Colossus: Character {
-    init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 400,attackPoints: 5, weapon:Hammer(), type: "Colossus", fullLifeBar: 400)
-    }
-}
-
-class Dwarf: Character {
-    init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 70,attackPoints: 50, weapon:Axe(), type: "Dwarf", fullLifeBar: 70)
-    }
-}
-
-class GiantDwarf: Character {
-    init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 150,attackPoints: 50, weapon:Axe(), type: "Giant Dwarf", fullLifeBar: 150)
-    }
-}
 
 
 class WalkingDead: Character {
