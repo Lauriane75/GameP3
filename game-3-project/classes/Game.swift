@@ -14,9 +14,6 @@ class Game {
     
     var arrayPlayer = [Player]() // Array of 2 players player1 & player2
     
-    
-    
-    
     func characterChoice() -> Int {
         var currentCharacterChoice = 0
         repeat{
@@ -25,7 +22,7 @@ class Game {
                     currentCharacterChoice = strData
                 }
             }
-        } while currentCharacterChoice < 1 && currentCharacterChoice > 3
+        } while currentCharacterChoice != 1 && currentCharacterChoice != 2 && currentCharacterChoice != 3
         return currentCharacterChoice
     }
     
@@ -35,8 +32,6 @@ class Game {
         print("Who is going to win ?")
         for (_, item) in arrayPlayer.enumerated() {
             print ("\(item.namePlayer)?")
-            print ("or")
-            
             item.statsOfFights()
         }
     }
@@ -58,7 +53,6 @@ class Game {
                         print("If you eat it now you will transform to a giant dwarf and have a full 150 defense points")
                         let newWeapon = MagicMushroom()
                         let newCharacter = GiantDwarf(name:character.nameCharacter)
-                        
                         character.weapon = newWeapon
                         character.nameCharacter = newCharacter.nameCharacter
                         character.fullLifeBar = 150
@@ -118,36 +112,60 @@ class Game {
         func start() {
             print ("Let's start the game!")
         }
+    
+    
+   /*
+     // Show the 2 players
+     for i in 0..<arrayPlayer.count {
+     print ("\(i+1) \(Player(namePlayer: playerName))")
+     }
         
-        
-        
-        func nameYourPlayer() -> Player {
-            print ("What's your name ?")
-            var playerName = ""
-            repeat {
-                if let name = readLine() {
-                    playerName = name
-                }
-            } while playerName == ""
-            let player = Player(namePlayer: playerName)
-            player.createYourTeam()
-            
-            start()
-            // Show the 2 players
-            for i in 0..<arrayPlayer.count {
-                print ("\(i+1) \(Player(namePlayer: playerName))")
+        func nameYourPlayer() {
+            for (_, item) in arrayPlayer.enumerated() {
+             print ("What's your name ?")
+                 var playerName = ""
+                let player = Player(namePlayer: playerName)
+                repeat {
+                    if let name = readLine() {
+                        playerName = name
+                    }
+                } while playerName == ""
+                
+                print ("Hello \(item.namePlayer)!")
+                arrayPlayer.append(Player(namePlayer: playerName))
+                player.createYourTeam()
             }
-            return player
+    }
+
+
+    // name players
+    func namePlayers() {
+        let name = ""
+        repeat {
+            if let strData = readLine() {
+                let    name = strData
+                print("Hello \(name)")
+            }
+        } while name != ""
+    }
+    
+            print("Let's play with : ")
+            for (i, item) in arrayPlayer.enumerated() {
+                print ("\(i+1) \(item.namePlayer)")
+            }
+           //
         }
-        
+        */
         
         // to cure or to fight character vs character
         func battle() {
             var currentCharacter:Character
+            print ("Let's start the battle !")
+            showThe2Teams()
             repeat {
                 for (i, item) in arrayPlayer.enumerated() {
                   //  let currentTeam = arrayPlayer[i]
-                    showThe2Teams() // this func is showing the 2 teams' stats of fights
+                    // this func is showing the 2 teams' stats of fights
                     print("\(i+1) \(item.namePlayer), it's your turn : ")
                     print("\n")
                     print("\(i+1) \(item.namePlayer) please choose one of your characters to start the battle, typing a number between 1 and 3")
@@ -168,21 +186,46 @@ class Game {
                 }
             } while !playerLost()
         }
+    
         
-        
-        func playGame() {
+    func playGame() {
             // Intro
             print("WELCOME TO THE MAGIC WORLD")
-            // setting up the game
-            for i in 1...2 {
-                print ("Player \(i+1)")
-                let namePlayer = nameYourPlayer() // name the 2 players
-                arrayPlayer.append(namePlayer) // add the players in an array
-            }
+            // Game description
+            // Setting up the game
+            // 1) Name the 2 players
+         for _ in 0..<1 {
+            _ = nameYourPlayer()
+            print("Hello \(nameYourPlayer().namePlayer) !")
+        }
+        
+        
+
+               // print ("Hello \(item.namePlayer)")
+            // create teams
+            
             // fighting phase
             battle()
             //End of game
-        }
+    }
+    
+    func nameYourPlayer() -> Player {
+        print ("Hello new player What's your name ?")
+        var playerName = ""
+        repeat {
+            if let name = readLine() {
+                playerName = name
+            }
+        } while playerName == ""
+        print ("Hello \(playerName)\n")
+        let player = Player(namePlayer: playerName)
+        arrayPlayer.append(Player(namePlayer: playerName))
+        print ("OK, let's create your team ! ")
+        player.createYourTeam()
+        print("Perfect! You are fine. ")
+        print("****************************************")
+        return player
+    }
         
     
     
