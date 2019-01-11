@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 class Game {
     
     var arrayPlayer = [Player]() // Array of 2 players player1 & player2
@@ -26,51 +24,100 @@ class Game {
         return currentCharacterChoice
     }
     
-    
-    // To show the stats of fights of the 2 teams at the beginning of each battle
-    func showThe2Teams() {
-        print("Who is going to win ?")
-        for (_, item) in arrayPlayer.enumerated() {
-            print ("\(item.namePlayer)?")
-            item.statsOfFights()
-        }
+    func createTeamDescription() {
+        print("**********************************************************************")
+        print("1 = Fighter   - Defense: 100 - Attack: 10    - Magic Healing: 0")
+        print("2 = Magus     - Defense: 300 - Attack: 0     - Magic Healing: +50")
+        print("3 = Colossus  - Defense: 400 - Attack: 5     - Magic Healing: 0")
+        print("4 = Dwarft    - Defense: 70  - Attack  : 50  - Magic Healing: 0")
+        print("**********************************************************************\n")
+        print("Choose a character by typing a number between 1 and 4 ")
     }
     
-    // lauch the magic box randomly
-    // Magic Potion or Magic Mushroom or Grenade
-    func magicBox(character: Character) {
-        let random = arc4random_uniform(100)
-        if character.defensePoints >= 1 {
-            if random <= 20 {
-                if character is Magus {
-                    print("Crazy! You've found a magic potion!")
-                    print("Only a magus can give this potion to one of your buddy. It will give 100% of his defense points")
-                    let newWeapon = MagicPotion()
-                    character.weapon = newWeapon
-                    if character is Dwarf {
-                        print("You've found a magic mushroom")
-                        print("Only Dwarfs like to eat it because it makes them much taller and bigger.")
-                        print("If you eat it now you will transform to a giant dwarf and have a full 150 defense points")
-                        let newWeapon = MagicMushroom()
-                        let newCharacter = GiantDwarf(name:character.nameCharacter)
+    func createYourTeam() {
+        print ("OK, let's create your team ! \n")
+        for (_, item) in arrayPlayer.enumerated() {
+            print ("\(item.namePlayer) please ? \n")
+            for _ in 0..<3 { // ask 3 times for 3 characters in the team
+                var characterChoice  = 0
+                repeat {
+                    createTeamDescription()   // call the function describing character's properties
+                    if let strData = readLine() {
+                        if let strData = Int(strData) {
+                            characterChoice = strData
+                        }
+                    }
+                } while characterChoice != 1 && characterChoice != 2 && characterChoice != 3 && characterChoice != 4
+                let nameYourCharacter = UniqueName.single.uniqueCharacterNames()
+                
+                switch characterChoice {
+                case 1:
+                    print("Your Fighter is called \(nameYourCharacter)")
+                    item.arrayCharacter.append(Fighter(name: nameYourCharacter))
+                case 2:
+                    print("Your Magus is called \(nameYourCharacter)")
+                    item.arrayCharacter.append(Magus(name: nameYourCharacter))
+                case 3:
+                    print("Your Colossus is called \(nameYourCharacter)")
+                    item.arrayCharacter.append(Colossus(name: nameYourCharacter))
+                case 4:
+                    print("Your Dwarf is called \(nameYourCharacter)")
+                    item.arrayCharacter.append(Dwarf(name: nameYourCharacter))
+                default:
+                    return
+                }
+            }
+            print("Perfect! You are fine. ")
+        }
+    }
+   
+        
+        
+        
+        // To show the stats of fights of the 2 teams at the beginning of each battle
+        func showThe2Teams() {
+            print("Who is going to win ?")
+            for (_, item) in arrayPlayer.enumerated() {
+                print ("\(item.namePlayer)?")
+                item.statsOfFights()
+            }
+        }
+        
+        // lauch the magic box randomly
+        // Magic Potion or Magic Mushroom or Grenade
+        func magicBox(character: Character) {
+            let random = arc4random_uniform(100)
+            if character.defensePoints >= 1 {
+                if random <= 20 {
+                    if character is Magus {
+                        print("Crazy! You've found a magic potion!")
+                        print("Only a magus can give this potion to one of your buddy. It will give 100% of his defense points")
+                        let newWeapon = MagicPotion()
                         character.weapon = newWeapon
-                        character.nameCharacter = newCharacter.nameCharacter
-                        character.fullLifeBar = 150
-                        
-                        // question : comment on change le 150 en propriété de GiantDwarf
-                        
-                        // the character becomes a GiantDwarf
-                    } else { // If the character is a fighter or a Colossus he will find a grenade
-                        print ("Wow! You've just dicovered a new weapon!")
-                        print("You can use it during a battle on any character enemy. It will take  70 of his defense points.")
-                        let newWeapon = Grenade()
-                        character.weapon = newWeapon
-                        
+                        if character is Dwarf {
+                            print("You've found a magic mushroom")
+                            print("Only Dwarfs like to eat it because it makes them much taller and bigger.")
+                            print("If you eat it now you will transform to a giant dwarf and have a full 150 defense points")
+                            let newWeapon = MagicMushroom()
+                            let newCharacter = GiantDwarf(name:character.nameCharacter)
+                            character.weapon = newWeapon
+                            character.nameCharacter = newCharacter.nameCharacter
+                            character.fullLifeBar = 150
+                            
+                            // question : comment on change le 150 en propriété de GiantDwarf
+                            
+                            // the character becomes a GiantDwarf
+                        } else { // If the character is a fighter or a Colossus he will find a grenade
+                            print ("Wow! You've just dicovered a new weapon!")
+                            print("You can use it during a battle on any character enemy. It will take  70 of his defense points.")
+                            let newWeapon = Grenade()
+                            character.weapon = newWeapon
+                            
+                        }
                     }
                 }
             }
         }
-    }
         
         func battleDesignated(ind:Int,opponentPlayer:Player,character:Character) {
             opponentPlayer.statsOfFights() // show the opposite stats of fights of the player's characters
@@ -112,72 +159,70 @@ class Game {
         func start() {
             print ("Let's start the game!")
         }
-    
-    
-   /*
-     // Show the 2 players
-     for i in 0..<arrayPlayer.count {
-     print ("\(i+1) \(Player(namePlayer: playerName))")
-     }
         
-        func nameYourPlayer() {
-            for (_, item) in arrayPlayer.enumerated() {
-             print ("What's your name ?")
-                 var playerName = ""
-                let player = Player(namePlayer: playerName)
-                repeat {
-                    if let name = readLine() {
-                        playerName = name
-                    }
-                } while playerName == ""
-                
-                print ("Hello \(item.namePlayer)!")
-                arrayPlayer.append(Player(namePlayer: playerName))
-                player.createYourTeam()
-            }
-    }
-
-
-    // name players
-    func namePlayers() {
-        let name = ""
-        repeat {
-            if let strData = readLine() {
-                let    name = strData
-                print("Hello \(name)")
-            }
-        } while name != ""
-    }
-    
-            print("Let's play with : ")
-            for (i, item) in arrayPlayer.enumerated() {
-                print ("\(i+1) \(item.namePlayer)")
-            }
-           //
-        }
-        */
+        
+        /*
+         // Show the 2 players
+         for i in 0..<arrayPlayer.count {
+         print ("\(i+1) \(Player(namePlayer: playerName))")
+         }
+         
+         func nameYourPlayer() {
+         for (_, item) in arrayPlayer.enumerated() {
+         print ("What's your name ?")
+         var playerName = ""
+         let player = Player(namePlayer: playerName)
+         repeat {
+         if let name = readLine() {
+         playerName = name
+         }
+         } while playerName == ""
+         
+         print ("Hello \(item.namePlayer)!")
+         arrayPlayer.append(Player(namePlayer: playerName))
+         player.createYourTeam()
+         }
+         }
+         
+         
+         // name players
+         func namePlayers() {
+         let name = ""
+         repeat {
+         if let strData = readLine() {
+         let    name = strData
+         print("Hello \(name)")
+         }
+         } while name != ""
+         }
+         
+         print("Let's play with : ")
+         for (i, item) in arrayPlayer.enumerated() {
+         print ("\(i+1) \(item.namePlayer)")
+         }
+         //
+         }
+         */
         
         // to cure or to fight character vs character
         func battle() {
+            showThe2Teams() // this func is showing the 2 teams' stats of fights
             var currentCharacter:Character
-            print ("Let's start the battle !")
-            showThe2Teams()
             repeat {
                 for (i, item) in arrayPlayer.enumerated() {
-                  //  let currentTeam = arrayPlayer[i]
-                    // this func is showing the 2 teams' stats of fights
-                    print("\(i+1) \(item.namePlayer), it's your turn : ")
+                    //  let currentTeam = arrayPlayer[i]
+                    print("\(item.namePlayer), it's your turn : ")
                     print("\n")
-                    print("\(i+1) \(item.namePlayer) please choose one of your characters to start the battle, typing a number between 1 and 3")
-                    arrayPlayer[i].statsOfFights()
-                    currentCharacter = arrayPlayer[i].arrayCharacter[characterChoice() - 1]
+                    print("\(item.namePlayer) please choose one of your characters to start the battle, typing a number between 1 and 3")
+                    item.statsOfFights()
+                    currentCharacter = item.arrayCharacter[characterChoice() - 1]
                     // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
                     magicBox(character: currentCharacter) // launch the magic box with 3 new weapons inside (depending on the type of character)
-                  //  magicElixir(ind:i, currentPlayer:currentTeam, character:currentCharacter )
+                    //  magicElixir(ind:i, currentPlayer:currentTeam, character:currentCharacter )
                     if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not => It's an optional because maybe the player wouldn't choose a Magus to create his team
-                        arrayPlayer[i].statsOfFights() // show the stats of fights
+                        item.statsOfFights() // show the stats of fights
                         print("\(i+1) \(item.namePlayer), choose someone of your team to cure him")
-                        magus.cure(character: arrayPlayer[i].arrayCharacter[characterChoice() - 1])
+                        magus.cure(character: item.arrayCharacter[characterChoice() - 1])
                         // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
                     } else {
                         let targetTeam = arrayPlayer[i+1]
@@ -186,51 +231,51 @@ class Game {
                 }
             } while !playerLost()
         }
-    
         
-    func playGame() {
+        
+        func playGame() {
             // Intro
             print("WELCOME TO THE MAGIC WORLD")
             // Game description
             // Setting up the game
             // 1) Name the 2 players
-         for _ in 0..<1 {
-            _ = nameYourPlayer()
-            print("Hello \(nameYourPlayer().namePlayer) !")
-        }
-        
-        
-
-               // print ("Hello \(item.namePlayer)")
+            settingUpTheGame()
+            createYourTeam()
+            // print ("Hello \(item.namePlayer)")
             // create teams
-            
             // fighting phase
             battle()
             //End of game
-    }
-    
-    func nameYourPlayer() -> Player {
-        print ("Hello new player What's your name ?")
-        var playerName = ""
-        repeat {
-            if let name = readLine() {
-                playerName = name
-            }
-        } while playerName == ""
-        print ("Hello \(playerName)\n")
-        let player = Player(namePlayer: playerName)
-        arrayPlayer.append(Player(namePlayer: playerName))
-        print ("OK, let's create your team ! ")
-        player.createYourTeam()
-        print("Perfect! You are fine. ")
-        print("****************************************")
-        return player
-    }
+        }
         
-    
-    
-    
+        func settingUpTheGame() {
+            for i in 0..<2 {
+                print ("Hello player \(i+1)")
+                _ = nameYourPlayer()
+            }
+        }
+        
+        func nameYourPlayer() -> Player {
+            print ("What's your name ?")
+            var playerName = ""
+            repeat {
+                if let name = readLine() {
+                    playerName = name
+                }
+            } while playerName == ""
+            print ("Hello \(playerName)")
+            let player = Player(namePlayer: playerName)
+            arrayPlayer.append(Player(namePlayer: playerName))
+            print("_________________________________________________")
+            return player
+        }
+        
+        
+        
+        
 } // End of class Game
+
+
 
 
 
