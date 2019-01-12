@@ -174,10 +174,10 @@ class Game {
                 } else {
                     let currentPlayer = item.namePlayer
                     _ = arrayPlayer[i]
-                    let targetTeam = arrayPlayer[i+1]
-                    targetTeam.statsOfFights()
+                    let targetPlayer = arrayPlayer[i+1]
+                    targetPlayer.statsOfFights()
                     print("\(currentPlayer) Please choose someone of the opposit team to fight with.")
-                    let characterTarget = targetTeam.arrayCharacter[characterChoice() - 1]
+                    let characterTarget = targetPlayer.arrayCharacter[characterChoice() - 1]
                     
                     if currentCharacter.defensePoints > 0 {
                         if characterTarget.defensePoints <= 0 {
@@ -228,7 +228,8 @@ class Game {
             // fighting phase
             battle()
             //End of game
-           
+            print ("Game Over")
+            // Show winner
         }
         
         func settingUpTheGame() {
