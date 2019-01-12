@@ -118,15 +118,7 @@ class Game {
                 }
             }
         }
-        
-        func battleDesignated(ind:Int,opponentPlayer:Player,character:Character) {
-            opponentPlayer.statsOfFights() // show the opposite stats of fights of the player's characters
-            print("\(ind+1) Please choose someone of the opposit team to fight with.")
-            let myTargetCharacter = opponentPlayer.arrayCharacter[characterChoice() - 1]
-            character.fight(targetCharacter: myTargetCharacter)
-            print ("Name : \(character.type) \(character.nameCharacter)   Defense points :\(character.defensePoints)\nName : \(myTargetCharacter.type)    Defense points: \(myTargetCharacter.nameCharacter)")
-        }
-        
+    
         
         
         
@@ -159,93 +151,84 @@ class Game {
         func start() {
             print ("Let's start the game!")
         }
-        
-        
-        /*
-         // Show the 2 players
-         for i in 0..<arrayPlayer.count {
-         print ("\(i+1) \(Player(namePlayer: playerName))")
-         }
-         
-         func nameYourPlayer() {
-         for (_, item) in arrayPlayer.enumerated() {
-         print ("What's your name ?")
-         var playerName = ""
-         let player = Player(namePlayer: playerName)
-         repeat {
-         if let name = readLine() {
-         playerName = name
-         }
-         } while playerName == ""
-         
-         print ("Hello \(item.namePlayer)!")
-         arrayPlayer.append(Player(namePlayer: playerName))
-         player.createYourTeam()
-         }
-         }
-         
-         
-         // name players
-         func namePlayers() {
-         let name = ""
-         repeat {
-         if let strData = readLine() {
-         let    name = strData
-         print("Hello \(name)")
-         }
-         } while name != ""
-         }
-         
-         print("Let's play with : ")
-         for (i, item) in arrayPlayer.enumerated() {
-         print ("\(i+1) \(item.namePlayer)")
-         }
-         //
-         }
-         */
-        
-        // to cure or to fight character vs character
-        func battle() {
-            showThe2Teams() // this func is showing the 2 teams' stats of fights
-            var currentCharacter:Character
-            repeat {
-                for (i, item) in arrayPlayer.enumerated() {
-                    //  let currentTeam = arrayPlayer[i]
-                    print("\(item.namePlayer), it's your turn : ")
-                    print("\n")
-                    print("\(item.namePlayer) please choose one of your characters to start the battle, typing a number between 1 and 3")
-                    item.statsOfFights()
-                    currentCharacter = item.arrayCharacter[characterChoice() - 1]
+
+    // to cure or to fight character vs character
+    func battle() {
+        showThe2Teams() // this func is showing the 2 teams' stats of fights
+        var currentCharacter:Character
+        repeat {
+            for (i, item) in arrayPlayer.enumerated() {
+                
+                print("\(item.namePlayer), it's your turn : \n")
+                print("\(item.namePlayer) please choose one of your characters to start the battle, typing a number between 1 and 3")
+                item.statsOfFights()
+                currentCharacter = item.arrayCharacter[characterChoice() - 1]
+                // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
+                magicBox(character: currentCharacter) // launch the magic box with 3 new weapons inside (depending on the type of character)
+                //  magicElixir(ind:i, currentPlayer:currentTeam, character:currentCharacter )
+                if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not => It's an optional because maybe the player wouldn't choose a Magus to create his team
+                    item.statsOfFights() // show the stats of fights
+                    print("\(item.namePlayer), choose someone of your team to cure him")
+                    magus.cure(character: item.arrayCharacter[characterChoice() - 1])
                     // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
-                    magicBox(character: currentCharacter) // launch the magic box with 3 new weapons inside (depending on the type of character)
-                    //  magicElixir(ind:i, currentPlayer:currentTeam, character:currentCharacter )
-                    if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not => It's an optional because maybe the player wouldn't choose a Magus to create his team
-                        item.statsOfFights() // show the stats of fights
-                        print("\(i+1) \(item.namePlayer), choose someone of your team to cure him")
-                        magus.cure(character: item.arrayCharacter[characterChoice() - 1])
-                        // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
+                } else {
+                    let currentPlayer = item.namePlayer
+                    _ = arrayPlayer[i]
+                    let targetTeam = arrayPlayer[i+1]
+                    targetTeam.statsOfFights()
+                    print("\(currentPlayer) Please choose someone of the opposit team to fight with.")
+                    let characterTarget = targetTeam.arrayCharacter[characterChoice() - 1]
+                    
+                    if currentCharacter.defensePoints > 0 {
+                        if characterTarget.defensePoints <= 0 {
+                            print("This guy is already over!") // just in case of error system
+                        } else {
+                            characterTarget.defensePoints -= currentCharacter.weapon.injuries  // to take the defense points of the character enemy
+                            print(" Your \(currentCharacter.type) \(currentCharacter.nameCharacter) just hit the \(characterTarget.type) \(characterTarget.nameCharacter) with his \(currentCharacter.weapon.nameWeapon) taking \(currentCharacter.weapon.injuries) defense points to him.")
+                            if characterTarget.defensePoints <= 0 {
+                                characterTarget.defensePoints = 0
+                                print ("\(characterTarget.type) \(characterTarget.nameCharacter) just died")
+                            }
+                        }
                     } else {
-                        let targetTeam = arrayPlayer[i+1]
-                        battleDesignated( ind:i, opponentPlayer:targetTeam, character:currentCharacter)
+                        print("Sorry, \(characterTarget.nameCharacter) needs to be revived! ")
+                    }  // fighting in return if the opponent character is still alive
+                    
+                    if characterTarget.defensePoints > 0 {
+                        if currentCharacter.defensePoints <= 0 {
+                            print("This guy is already over!") // just in case of error system
+                        } else {
+                            if characterTarget is Magus {
+                                print ("Your \(characterTarget.type) \(characterTarget.nameCharacter) doesn't know how to fight.")
+                            } else {
+                                currentCharacter.defensePoints -= characterTarget.weapon.injuries  // to take the defense points of the character enemy
+                                print(" The \(characterTarget.type) \(characterTarget.nameCharacter) hit the \(currentCharacter.type) \(currentCharacter.nameCharacter) with his \(characterTarget.weapon.nameWeapon) taking \(characterTarget.weapon.injuries) defense points to him.")
+                                if currentCharacter.defensePoints <= 0 {
+                                    currentCharacter.defensePoints = 0
+                                    print ("\(currentCharacter.type) \(currentCharacter.nameCharacter) just died")
+                                }
+                            }
+                        }
                     }
                 }
-            } while !playerLost()
-        }
-        
+            }
+        } while !playerLost()
+    }
+    
         
         func playGame() {
             // Intro
             print("WELCOME TO THE MAGIC WORLD")
-            // Game description
+            // Game rules
             // Setting up the game
             // 1) Name the 2 players
             settingUpTheGame()
+            // 2) create teams
             createYourTeam()
-            // print ("Hello \(item.namePlayer)")
-            // create teams
             // fighting phase
             battle()
             //End of game
+           
         }
         
         func settingUpTheGame() {
