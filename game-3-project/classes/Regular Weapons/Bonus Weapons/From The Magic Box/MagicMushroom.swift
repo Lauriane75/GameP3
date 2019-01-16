@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+// From the MagicBox => Can be use by a Dwarf on an opponent character
+class MagicMushroom:Weapon {
+    init(){
+        super.init(nameWeapon: "Magic Mushroom", injuries: 0, healing: 150)
+    }
+}

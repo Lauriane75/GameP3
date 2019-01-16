@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+class WalkingDead: Character {
+    init(name: String) {
+        super.init(nameCharacter: name, defensePoints: 300,attackPoints: 70, weapon:Bite(), type: "Walking Dead", fullLifeBar: 300)
+    }
+}

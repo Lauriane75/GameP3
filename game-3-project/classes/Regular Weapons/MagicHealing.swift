@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+// Magus' weapon
+class MagicHealing: Weapon {
+    init() {
+        super.init(nameWeapon: "MagicHealing", injuries: 0, healing: 20)
+        // The magus can give defense point to characters of his own team + 100 defense points
+    }
+}

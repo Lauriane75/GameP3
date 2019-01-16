@@ -63,12 +63,6 @@ class Character {
 
 
 
-class WalkingDead: Character {
-    init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 400,attackPoints: 50, weapon:Bite(), type: "Walking Dead", fullLifeBar: 400)
-    }
-}
-
 
 
 

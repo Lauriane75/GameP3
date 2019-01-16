@@ -10,7 +10,7 @@ import Foundation
 
 class Magus: Character {
     init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 300,attackPoints: 0, weapon:MagicHealing(), type: "Magus", fullLifeBar: 300)
+        super.init(nameCharacter: name, defensePoints: 200,attackPoints: 0, weapon:MagicHealing(), type: "Magus", fullLifeBar: 200)
     }
     
     
@@ -22,7 +22,7 @@ class Magus: Character {
             } else {
                 character.defensePoints += weapon.healing  // give 50 life points to the character designated
                 print("Your Magus just gave 50 defense points to your \(character.type) \(character.nameCharacter)")
-                print("Name : \(character.type) \(character.nameCharacter)\nDefense points : \(character.defensePoints)\nAttack points : \(character.weapon.injuries)")
+                print("Name : \(character.type) \(character.nameCharacter)    Defense points : \(character.defensePoints)    Attack points : \(character.weapon.injuries)")
                 if character.defensePoints >= character.fullLifeBar { // to block the defense points at 100% for each character
                     character.defensePoints = character.fullLifeBar
                     print("Your \(character.type) \(character.nameCharacter) has all his life points.")

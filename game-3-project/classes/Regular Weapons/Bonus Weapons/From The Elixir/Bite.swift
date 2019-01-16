@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+// From de Elixir => Walking dead's weapon on an opponent character
+// The Elixir is a magic potion which will transform one of the dead characters chose in the player own team to a walking dead character.
+class Bite:Weapon {
+    init() {
+        super.init(nameWeapon: "Bite", injuries: 50, healing: 0)
+    }
+}

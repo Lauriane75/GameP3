@@ -24,7 +24,7 @@ class UniqueName {
                 nameYourCharacter = readLine()!
             } else {
                 charactersNameArray.append(nameYourCharacter) // if not, the name can be added to the character's name array
-                print("Perfect! You are fine. ")
+                print("Ok!")
             }
         } while nameYourCharacter == ""
         return nameYourCharacter

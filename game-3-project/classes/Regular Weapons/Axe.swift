@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+// Dwarfs' weapon
+class Axe: Weapon {
+    init() {
+        super.init(nameWeapon: "Axe", injuries: 70, healing: 0)
+    }
+}
