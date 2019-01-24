@@ -7,8 +7,7 @@
 //
 
 import Foundation
-
-// Colossus weapon
+// The Colossus' Weapon
 class Hammer: Weapon {
     init() {
         super.init(nameWeapon: "Hammer", injuries: 7, healing: 0)
