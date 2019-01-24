@@ -192,7 +192,7 @@ class Game {
                 
                 // call the zombie potion randomly to bring a dead character back to life and transform him in a walking dead newcharacter
                 item.zombiePotion(character:currentCharacter)
-                // launch the magic box with 3 new weapons inside (depending on the type of character)
+                // launch the magic box with 3 new weapons inside = depending on the type of character
                 magicBox(character: currentCharacter, player: item)
                 if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not => It's an optional because maybe the player wouldn't choose a Magus to create his team
                     print("\(item.namePlayer), choose someone of your team to cure him.\nBe careful you can't cure yourself")
