@@ -7,6 +7,7 @@
 //
 
 import Foundation
+// the character Magus
 
 class Magus: Character {
     init(name: String) {
