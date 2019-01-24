@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+// The general weapon class
 class Weapon {
     let nameWeapon: String
     var injuries: Int
