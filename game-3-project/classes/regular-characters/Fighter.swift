@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+// the character Fighter
 class Fighter: Character {
     init(name: String) {
         super.init(nameCharacter: name, defensePoints: 100, attackPoints: 10, weapon:Sword(), type: "Fighter", fullLifeBar: 100 )
