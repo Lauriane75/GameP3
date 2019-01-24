@@ -19,9 +19,11 @@ class Magus: Character {
         if defensePoints > 0 {
             if character.defensePoints <= 0 {
                 print("I'm sorry this buddy just died")
+            } else if character is Magus {
+                print ("You can't cure yourself")
             } else {
-                character.defensePoints += weapon.healing  // give 50 life points to the character designated
-                print("Your Magus just gave 50 defense points to your \(character.type) \(character.nameCharacter)")
+                character.defensePoints += weapon.healing  // give 20 life points to the character designated
+                print("Your Magus just gave \(weapon.healing) defense points to your \(character.type) \(character.nameCharacter)")
                 print("Name : \(character.type) \(character.nameCharacter)    Defense points : \(character.defensePoints)    Attack points : \(character.weapon.injuries)")
                 if character.defensePoints >= character.fullLifeBar { // to block the defense points at 100% for each character
                     character.defensePoints = character.fullLifeBar

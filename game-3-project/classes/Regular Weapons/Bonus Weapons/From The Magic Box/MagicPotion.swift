@@ -11,7 +11,7 @@ import Foundation
 // From the MagicBox => Can be use by a Magus on a character of the same team
 class MagicPotion:Weapon {
     init(){
-        super.init(nameWeapon: "Magic Potion", injuries: 0, healing: 300)
+        super.init(nameWeapon: "Magic Potion", injuries: 0, healing: 100)
         // That weapon has to give full defense bar to each character
     }
 }

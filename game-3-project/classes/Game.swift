@@ -12,20 +12,19 @@ class Game {
     
     var arrayPlayer = [Player]() // Array of 2 players player1 & player2
     
-    func characterChoice() -> Int {
-        var currentCharacterChoice = 0
-        repeat{
-            if let strData = readLine() {
-                if let strData = Int(strData) {
-                    currentCharacterChoice = strData
-                }
-            }
-        } while currentCharacterChoice != 1 && currentCharacterChoice != 2 && currentCharacterChoice != 3
-        return currentCharacterChoice
+    // introduction
+    func gameRules() {
+        print("       *********************************")
+        print("       *  WELCOME TO THE MAGIC WORLD ! * ")
+        print("       *********************************")
+        print ("Once upon a time there was a team of 3 friends who were looking for a treasure that everyone was talking about, but no one had ever find it. This treasure was hiding in a magical and enchanted world. After months and months of quest, they  finally got to find the treasure, full of courage and exhausted. But that day, they were not the only ones. Another mysterious team was already there to seize the treasure.\n")
+        print ("Game Rules : In this game, you will create 2 team of 3 players and start battles. Sometimes you will discover some surprises so pay attention.\n")
+        print ("\nNow it's time to fight for the treasure\n Let's start the Game !\n")
     }
+
     
     func createTeamDescription() {
-        print("Choose a character by typing a number between 1 and 4 ")
+        print("Choose a character by typing a number between 1 et 4")
         print("**********************************************************************")
         print("1 = Fighter   - Defense: 100 - Attack: 10    - Magic Healing: 0")
         print("2 = Magus     - Defense: 300 - Attack: 0     - Magic Healing: +50")
@@ -33,11 +32,34 @@ class Game {
         print("4 = Dwarft    - Defense: 70  - Attack  : 50  - Magic Healing: 0")
         print("**********************************************************************\n")
     }
+
+    func settingUpTheGame() {
+        for i in 0..<2 {
+            print ("Hello player \(i+1)")
+            _ = nameYourPlayer()
+        }
+    }
+    
+    func nameYourPlayer() -> Player {
+        print ("What's your name ?")
+        var playerName = ""
+        repeat {
+            if let name = readLine() {
+                playerName = name
+            }
+        } while playerName == ""
+        print ("Hello \(playerName)")
+        let player = Player(namePlayer: playerName)
+        arrayPlayer.append(Player(namePlayer: playerName))
+        print("_________________________________________________")
+        return player
+    }
+    
     
     func createYourTeam() {
         print ("OK, let's create your team ! \n")
         for (_, item) in arrayPlayer.enumerated() {
-            print ("\(item.namePlayer) please ? \n")
+            print ("\(item.namePlayer) please ?")
             for _ in 0..<3 { // ask 3 times for 3 characters in the team
                 var characterChoice  = 0
                 repeat {
@@ -67,11 +89,9 @@ class Game {
                     return
                 }
             }
-            print("Perfect! You are fine. ")
+            print("Perfect! You are fine.\n")
         }
     }
-   
-        
         
         
         // To show the stats of fights of the 2 teams at the beginning of each battle
@@ -83,82 +103,75 @@ class Game {
             }
         }
         
-    // launch the magic box randomly
-    // Magic Potion or Magic Mushroom or Grenade
-    func magicBox(character: Character) {
-        let random = arc4random_uniform(70)
+    // launch the magic box randomly and find Magic Potion or Magic Mushroom or Grenade
+    func magicBox(character: Character, player: Player){
+        let random = arc4random_uniform(100)
         if character.defensePoints >= 1 {
-            if random <= 20 {
+            if random <= 25 {
+                print ("+++++++++++++")
+                print ("+ Magic Box +")
+                print ("+++++++++++++")
                 if character is Magus {
-                    print("Crazy! You've found a magic potion!")
-                    print("Only a magus can give this potion to one of your buddy. It will give 100% of his defense points\n")
-                    let newWeapon = MagicPotion()
-                    character.weapon = newWeapon
-                    // the character becomes a GiantDwarf
+                    // the Magus can cure 100 defense points
+                    if character.weapon is MagicHealing {
+                        let newWeapon = MagicPotion()
+                        print("Crazy! \(character.nameCharacter) has found a magic potion!\nOnly a magus can give this potion to one of your buddy. It will give 100 defense points to him.\n")
+                        character.weapon = newWeapon
+                    } else if character.weapon is MagicPotion {
+                        print ("\(character.nameCharacter), has already a superpower)")
+                    }
                 } else if character is Dwarf {
-                    print("You've found a magic mushroom")
-                    print("Only Dwarfs like to eat it because it makes them much taller and bigger.")
-                    print("Now you will transform to a giant dwarf and have a full 150 defense points\n")
-                    let newWeapon = MagicMushroom()
+                      // the Dwarf becomes a GiantDwarf
+                    print("\(character.nameCharacter)'s found a magic mushroom\nOnly Dwarfs like to eat it because it makes them much taller and bigger.")
+                    print("Now \(character.nameCharacter) will transform to a Giant Dwarf recover a full 150 defense points\n")
+                    character.defensePoints = 0
                     let newCharacter = GiantDwarf(name:character.nameCharacter)
-                    character.weapon = newWeapon
-                    character.nameCharacter = newCharacter.nameCharacter
-                    character.fullLifeBar = newCharacter.fullLifeBar
-                    character.defensePoints = newCharacter.defensePoints
-                } else { // If the character is a fighter or a Colossus he will find a grenade
-                    print ("Wow! You've just dicovered a Grenade!")
+                    _ = newCharacter
+                    player.arrayCharacter.append(newCharacter)
+                } else if character is Colossus || character is Fighter || character is WalkingDead || character is GiantDwarf {
+                    // If the character is a Fighter or a Colossus or a Walking Dead he will find a grenade and attack for 80 points
+                 if character.weapon is Hammer || character.weapon is Sword || character.weapon is Bite || character.weapon is Axe {
+                    print ("Wow! \(character.nameCharacter) has just dicovered a Grenade!")
                     print("Use it on the enemy and it will take 80 of his defense points.\n")
                     let newWeapon = Grenade()
                     character.weapon = newWeapon
-                }
-            }
-        }
-    }
-    
-    func dead() {
-        // To link each arrayPlayer with each arrayCharacter
-        for (_, item) in arrayPlayer.enumerated() {
-            for (_, it) in item.arrayCharacter.enumerated() {
-                if it.defensePoints <= 0 {
-                    print ("\(it.nameCharacter) died")
-                    let deadCharacter = it
-                    item.arrayDeadCharacter.append(deadCharacter)
-                    // To filter each dead character from the arrayCharacter
-                    _ = item.arrayCharacter.filter { $0.defensePoints <= 0 }
+                 } else if character.weapon is Grenade {
+                     print ("\(character.nameCharacter) has already a grenade")
                     }
                 }
             }
         }
+        player.arrayCharacter = player.arrayCharacter.filter{ $0.defensePoints > 0 }
+    }
+    
     
     func playerLost() -> Bool {
-        for (i, _) in arrayPlayer.enumerated() {
-            let player = i == 0 ? arrayPlayer[1] : arrayPlayer[0]
+        for _ in arrayPlayer {
         
-            if arrayPlayer[0].arrayDeadCharacter.count == 3 {
-                print("\(arrayPlayer[0].namePlayer) has lost")
-                print ("GAME OVER \(player.namePlayer)")
+            if arrayPlayer[0].arrayCharacter.count == 0 {
+                let winner = arrayPlayer[1]
+                let looser = arrayPlayer[0]
+                print("\(looser.namePlayer) has lost")
+                print ("GAME OVER \(looser.namePlayer)")
+                print ("Congratulations \(winner.namePlayer)'s team is winning the treasure !")
+                
                 return true
             }
         
-            if arrayPlayer[1].arrayDeadCharacter.count == 3 {
-                print("\(arrayPlayer[1].namePlayer) has lost")
-                print ("GAME OVER \(player.namePlayer)")
+            else if arrayPlayer[1].arrayCharacter.count == 0 {
+                let winner = arrayPlayer[0]
+                let looser = arrayPlayer[1]
+                print("\(looser.namePlayer) has lost")
+                print ("GAME OVER \(looser.namePlayer)")
+                print ("Congratulations \(winner.namePlayer)'s team is winning the treasure !")
+                
                 return true
-            }
+            } 
         }
         return false
     }
  
-        
-        
-
-        // introduction
-        func gameRules() {
-            print("WELCOME TO THE MAGIC WORLD !\n")
-            print ("Once upon a time there was a team of 3 friends who were looking for a treasure that everyone was talking about, but no one had ever find it. This treasure was hiding in a magical and enchanted world. After months and months of quest, they  finally got to find the treasure, full of courage and exhausted. But that day, they were not the only ones. Another mysterious team was already there to seize the treasure.\n")
-            print ("In this game, you will create 2 team of 3 players and start battles. Sometimes you will discovered some surprises so pay attention.\n")
-            print ("\nNow it's time to fight for the treasure\n Let's start the Game !\n")
-        }
+    
 
     // to cure or to fight character vs character
     func battle() {
@@ -169,26 +182,29 @@ class Game {
                 let currentPlayer = item.namePlayer
                 
                 print("\(item.namePlayer), it's your turn : \n")
-                // Player.magicElixir(item.namePlayer)
-                //magicElixir(ind:i, player:currentPlayer, character: currentCharacter)
-                // to bring a dead character back to life
-                print("\(item.namePlayer) please choose one of your characters to start the battle, typing a number between 1 and 3")
+                //call the Magic Elixir randomly to bring a dead character back to life
+                item.magicElixir(player:item)
+                print("\(item.namePlayer) please choose one of your characters to start the battle, typing his number")
                 item.statsOfFights()
-                currentCharacter = item.arrayCharacter[characterChoice() - 1]
                 // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
-                //Player.zombiePotion(character: Character)
-                magicBox(character: currentCharacter) // launch the magic box with 3 new weapons inside (depending on the type of character)
+                currentCharacter = item.arrayCharacter[item.characterChoice()-1]
+                // la on a exactement le nombre d'item ds le tableau
+                
+                // call the zombie potion randomly to bring a dead character back to life and transform him in a walking dead newcharacter
+                item.zombiePotion(character:currentCharacter)
+                // launch the magic box with 3 new weapons inside (depending on the type of character)
+                magicBox(character: currentCharacter, player: item)
                 if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not => It's an optional because maybe the player wouldn't choose a Magus to create his team
-                    print("\(item.namePlayer), choose someone of your team to cure him")
+                    print("\(item.namePlayer), choose someone of your team to cure him.\nBe careful you can't cure yourself")
                     item.statsOfFights() // show the stats of fights
-                    magus.cure(character: item.arrayCharacter[characterChoice() - 1])
+                    magus.cure(character: item.arrayCharacter[item.characterChoice()-1])
                     // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
                 } else {
                     
                     let targetPlayer = i == 0 ? arrayPlayer[1] : arrayPlayer[0]
                      print("\(currentPlayer) Please choose someone of the opposit team to fight with.")
                     targetPlayer.statsOfFights()
-                    let characterTarget = targetPlayer.arrayCharacter[characterChoice() - 1]
+                    let characterTarget = targetPlayer.arrayCharacter[targetPlayer.characterChoice()-1]
                     
                     if currentCharacter.defensePoints > 0 {
                         if characterTarget.defensePoints <= 0 {
@@ -200,6 +216,7 @@ class Game {
                                 characterTarget.defensePoints = 0
                                 print ("\(characterTarget.type) \(characterTarget.nameCharacter) died")
                                 targetPlayer.arrayDeadCharacter.append(characterTarget)
+                                targetPlayer.arrayCharacter = targetPlayer.arrayCharacter.filter { $0.defensePoints > 0 }
                             }
                         }
                     } else {
@@ -218,16 +235,14 @@ class Game {
                                 if currentCharacter.defensePoints <= 0 {
                                     currentCharacter.defensePoints = 0
                                     print ("\(currentCharacter.type) \(currentCharacter.nameCharacter) just died")
-                                    //currentPlayer.arrayDeadCharacter.append(currentCharacter)
-                                } else {
-                                print("Sorry, \(currentCharacter.nameCharacter) needs to be revived! ")
+                                    item.arrayDeadCharacter.append(currentCharacter)
+                                     item.arrayCharacter = item.arrayCharacter.filter { $0.defensePoints > 0 }
                                 }
                             }
                         }
                     }
                 }
             }
-            dead()
         } while !playerLost()
     }
     
@@ -247,28 +262,7 @@ class Game {
             // Show winner = win the treasure
         }
         
-        func settingUpTheGame() {
-            for i in 0..<2 {
-                print ("Hello player \(i+1)")
-                _ = nameYourPlayer()
-            }
-        }
-        
-        func nameYourPlayer() -> Player {
-            print ("What's your name ?")
-            var playerName = ""
-            repeat {
-                if let name = readLine() {
-                    playerName = name
-                }
-            } while playerName == ""
-            print ("Hello \(playerName)")
-            let player = Player(namePlayer: playerName)
-            arrayPlayer.append(Player(namePlayer: playerName))
-            print("_________________________________________________")
-            return player
-        }
-        
+ 
         
         
         
