@@ -7,8 +7,7 @@
 //
 
 import Foundation
-
-// Magus' weapon
+// The Magus' weapon
 class MagicHealing: Weapon {
     init() {
         super.init(nameWeapon: "MagicHealing", injuries: 0, healing: 20)
