@@ -88,7 +88,7 @@ class Player {
                     print ("Great ! Your \(dead.type) \(dead.nameCharacter) got back to life! ")
                     arrayCharacter.append(dead)
                 } else {
-                    print ("==> Sorry \(player.namePlayer), you don't have any dead guy.")
+                    print ("=> Sorry \(player.namePlayer), you don't have any dead guy.")
                 }
             }
         }
