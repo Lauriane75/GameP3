@@ -73,7 +73,7 @@ class Player {
         }
     }
     
-    // to bring a dead character back to life and have a full life bar
+    // to bring a dead character back to life and have 100% full life bar
     func magicElixir(player:Player) {
         let random = arc4random_uniform(100)
             if random <= 5 {
