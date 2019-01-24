@@ -23,7 +23,7 @@ class UniqueName {
                 print("This character's name '\(nameYourCharacter)' does already exist. Can you find a new name ?")
                 nameYourCharacter = readLine()!
             } else {
-                charactersNameArray.append(nameYourCharacter) // if not, the name can be added to the character's name array
+                charactersNameArray.append(nameYourCharacter) // if not the name can be added to the character's name array
                 print("Ok!")
             }
         } while nameYourCharacter == ""
