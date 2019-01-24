@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 // From the MagicBox => Can be use by a Fighter or a Colossus on an opponent character
 class Grenade:Weapon {
     init() {
