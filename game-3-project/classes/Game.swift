@@ -25,12 +25,12 @@ class Game {
     
     func createTeamDescription() {
         print("Choose a character by typing a number between 1 et 4")
-        print("**********************************************************************")
+        print("*********************************************************************")
         print("1 = Fighter   - Defense: 100 - Attack: 10    - Magic Healing: 0")
         print("2 = Magus     - Defense: 300 - Attack: 0     - Magic Healing: +50")
         print("3 = Colossus  - Defense: 400 - Attack: 5     - Magic Healing: 0")
         print("4 = Dwarft    - Defense: 70  - Attack  : 50  - Magic Healing: 0")
-        print("**********************************************************************\n")
+        print("*********************************************************************\n")
     }
 
     func settingUpTheGame() {

@@ -8,7 +8,6 @@
 
 import Foundation
 // the character Magus
-
 class Magus: Character {
     init(name: String) {
         super.init(nameCharacter: name, defensePoints: 200,attackPoints: 0, weapon:MagicHealing(), type: "Magus", fullLifeBar: 200)

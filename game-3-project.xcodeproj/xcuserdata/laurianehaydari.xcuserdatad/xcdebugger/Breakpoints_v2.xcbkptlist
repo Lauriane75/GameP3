@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "game-3-project/classes/Character.swift"
+            timestampString = "568661739.078792"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "init(nameCharacter:defensePoints:attackPoints:weapon:type:fullLifeBar:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "game-3-project/classes/Regular Weapons/Bonus Weapons/From The Magic Box/MagicPotion.swift"
+            timestampString = "570033256.437227"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "init()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "game_3_project.MagicPotion.__allocating_init() -&gt; game_3_project.MagicPotion"
+                  moduleName = "game-3-project"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/laurianehaydari/game-3-project/game-3-project/classes/Regular%20Weapons/Bonus%20Weapons/From%20The%20Magic%20Box/MagicPotion.swift"
+                  timestampString = "570016713.037833"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "game_3_project.MagicPotion.init() -&gt; game_3_project.MagicPotion"
+                  moduleName = "game-3-project"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/laurianehaydari/game-3-project/game-3-project/classes/Regular%20Weapons/Bonus%20Weapons/From%20The%20Magic%20Box/MagicPotion.swift"
+                  timestampString = "570016713.078366"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "22">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "game-3-project/classes/Regular Characters/Character.swift"
+            timestampString = "570019393.9191279"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "fight(targetCharacter:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
