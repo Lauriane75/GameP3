@@ -54,7 +54,7 @@ class Player {
     func zombiePotion(character: Character) {
         let random = arc4random_uniform(100)
         if character.defensePoints >= 1 {
-            if random <= 20 {
+            if random <= 10 {
                 print ("+++++++++++++++++")
                 print ("+ Zombie Potion +")
                 print ("+++++++++++++++++")
