@@ -18,7 +18,7 @@ class Game {
         print("       *  WELCOME TO THE MAGIC WORLD ! * ")
         print("       *********************************")
         print ("Once upon a time there was a team of 3 friends who were looking for a treasure that everyone was talking about, but no one had ever find it. This treasure was hiding in a magical and enchanted world. After months and months of quest, they  finally got to find the treasure, full of courage and exhausted. But that day, they were not the only ones. Another mysterious team was already there to seize the treasure.\n")
-        print ("Game Rules : In this game, you will create 2 team of 3 players and start battles. Sometimes you will discover some surprises so pay attention.\n")
+        print ("Game Rules : In this game, you will create 2 teams of 3 players and start battles. Sometimes you will discover some surprises so pay attention.\n")
         print ("\nNow it's time to fight for the treasure\n Let's start the Game !\n")
     }
 
@@ -183,7 +183,7 @@ class Game {
                 
                 print("\(item.namePlayer), it's your turn : \n")
                 //call the Magic Elixir randomly to bring a dead character back to life
-                item.magicElixir(player:item)
+                item.magicElixir()
                 print("\(item.namePlayer) please choose one of your characters to start the battle, typing his number")
                 item.statsOfFights()
                 // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
@@ -205,28 +205,23 @@ class Game {
                      print("\(currentPlayer) Please choose someone of the opposit team to fight with.")
                     targetPlayer.statsOfFights()
                     let characterTarget = targetPlayer.arrayCharacter[targetPlayer.characterChoice()-1]
-                    
-                    if currentCharacter.defensePoints > 0 {
-                        if characterTarget.defensePoints <= 0 {
-                            print("This guy is already over!")
-                        } else {
+                
+                        //if characterTarget.defensePoints <= 0 {
+                        //    print("This guy is already over!")
+                        if currentCharacter.defensePoints > 0 {
                             characterTarget.defensePoints -= currentCharacter.weapon.injuries  // to take the defense points of the character enemy
                             print(" Your \(currentCharacter.type) \(currentCharacter.nameCharacter) hit the \(characterTarget.type) \(characterTarget.nameCharacter) with his \(currentCharacter.weapon.nameWeapon) taking \(currentCharacter.weapon.injuries) defense points to him.")
+                            // if the target character is still alive
                             if characterTarget.defensePoints <= 0 {
                                 characterTarget.defensePoints = 0
                                 print ("\(characterTarget.type) \(characterTarget.nameCharacter) died")
                                 targetPlayer.arrayDeadCharacter.append(characterTarget)
                                 targetPlayer.arrayCharacter = targetPlayer.arrayCharacter.filter { $0.defensePoints > 0 }
-                            }
-                        }
-                    } else {
+                            } else {
                         print("Sorry, \(characterTarget.nameCharacter) needs to be revived! ")
-                    }  // fighting in return if the opponent character is still alive
-                    
-                    if characterTarget.defensePoints > 0 {
-                        if currentCharacter.defensePoints <= 0 {
-                            print("This guy is already over!")
-                        } else {
+                    }
+                            // fighting in return if the opponent character is still alive
+                            if characterTarget.defensePoints > 0 {
                             if characterTarget is Magus {
                                 print ("Your \(characterTarget.type) \(characterTarget.nameCharacter) doesn't know how to fight.")
                             } else {
