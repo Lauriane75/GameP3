@@ -54,7 +54,7 @@ class Player {
     func zombiePotion(character: Character) {
         let random = arc4random_uniform(100)
         if character.defensePoints >= 1 {
-            if random <= 10 {
+            if random <= 5 {
                 print ("+++++++++++++++++")
                 print ("+ Zombie Potion +")
                 print ("+++++++++++++++++")
@@ -74,13 +74,13 @@ class Player {
     }
     
     // to bring a dead character back to life and have 100% full life bar
-    func magicElixir(player:Player) {
+    func magicElixir() {
         let random = arc4random_uniform(100)
             if random <= 5 {
                 print ("++++++++++++++++")
                 print ("+ Magic Elixir +")
                 print ("++++++++++++++++")
-                print ("\(player.namePlayer)'s just found an Elixir!\nUse it to bring your last dead budy back to life")
+                print ("\(namePlayer)'s just found an Elixir!\nUse it to bring your last dead budy back to life")
                 showDeadCharacters()
                 if let dead = lastDeadCharacter() {
                     dead.defensePoints = dead.fullLifeBar
@@ -88,7 +88,7 @@ class Player {
                     print ("Great ! Your \(dead.type) \(dead.nameCharacter) got back to life! ")
                     arrayCharacter.append(dead)
                 } else {
-                    print ("=> Sorry \(player.namePlayer), you don't have any dead guy.")
+                    print ("=> Sorry \(namePlayer), you don't have any dead guy.")
                 }
             }
         }
