@@ -98,7 +98,6 @@ class Player {
     }
     
     func characterChoice() -> Int {
-        let number = arrayCharacter.count+1
         var currentCharacterChoice = 0
         repeat{
             if let strData = readLine() {
@@ -106,10 +105,9 @@ class Player {
                     currentCharacterChoice = strData
                 }
             }
-        } while currentCharacterChoice < 0 && currentCharacterChoice > number
+        } while currentCharacterChoice != 1 && currentCharacterChoice != 2 && currentCharacterChoice != 3
         return currentCharacterChoice
     }
-
 
 
 
