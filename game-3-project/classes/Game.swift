@@ -216,10 +216,7 @@ class Game {
                                 characterTarget.defensePoints = 0
                                 print ("\(characterTarget.type) \(characterTarget.nameCharacter) died")
                                 targetPlayer.arrayDeadCharacter.append(characterTarget)
-                                targetPlayer.arrayCharacter = targetPlayer.arrayCharacter.filter { $0.defensePoints > 0 }
-                            } else {
-                        print("Sorry, \(characterTarget.nameCharacter) needs to be revived! ")
-                    }
+                                targetPlayer.arrayCharacter = targetPlayer.arrayCharacter.filter { $0.defensePoints > 0 }}
                             // fighting in return if the opponent character is still alive
                             if characterTarget.defensePoints > 0 {
                             if characterTarget is Magus {
