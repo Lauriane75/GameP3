@@ -147,20 +147,20 @@ class Game {
     
     func playerLost() -> Bool {
         for _ in arrayPlayer {
-        
-            if arrayPlayer[0].arrayCharacter.count == 0 {
+        let player1 = arrayPlayer[0]
+            if player1.arrayCharacter.count == 0 {
                 let winner = arrayPlayer[1]
-                let looser = arrayPlayer[0]
+                let looser = player1
                 print("\(looser.namePlayer) has lost")
                 print ("GAME OVER \(looser.namePlayer)")
                 print ("Congratulations \(winner.namePlayer)'s team is winning the treasure !")
                 
                 return true
             }
-        
-            else if arrayPlayer[1].arrayCharacter.count == 0 {
+        let player2 = arrayPlayer[1]
+             if player2.arrayCharacter.count == 0 {
                 let winner = arrayPlayer[0]
-                let looser = arrayPlayer[1]
+                let looser = player2
                 print("\(looser.namePlayer) has lost")
                 print ("GAME OVER \(looser.namePlayer)")
                 print ("Congratulations \(winner.namePlayer)'s team is winning the treasure !")
@@ -216,10 +216,7 @@ class Game {
                                 characterTarget.defensePoints = 0
                                 print ("\(characterTarget.type) \(characterTarget.nameCharacter) died")
                                 targetPlayer.arrayDeadCharacter.append(characterTarget)
-                                targetPlayer.arrayCharacter = targetPlayer.arrayCharacter.filter { $0.defensePoints > 0 }
-                            } else {
-                        print("Sorry, \(characterTarget.nameCharacter) needs to be revived! ")
-                    }
+                                targetPlayer.arrayCharacter = targetPlayer.arrayCharacter.filter { $0.defensePoints > 0 }}
                             // fighting in return if the opponent character is still alive
                             if characterTarget.defensePoints > 0 {
                             if characterTarget is Magus {
