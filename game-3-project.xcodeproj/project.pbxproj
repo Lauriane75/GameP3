@@ -150,7 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				F6EBB27721E666D300B5AA5E /* from-the-magic-box */,
-				F6EBB27821E6672000B5AA5E /* from-the-elixir */,
+				F6EBB27821E6672000B5AA5E /* from-zombie-potion */,
 			);
 			path = "bonus-weapons";
 			sourceTree = "<group>";
@@ -164,12 +164,12 @@
 			path = "from-the-magic-box";
 			sourceTree = "<group>";
 		};
-		F6EBB27821E6672000B5AA5E /* from-the-elixir */ = {
+		F6EBB27821E6672000B5AA5E /* from-zombie-potion */ = {
 			isa = PBXGroup;
 			children = (
 				F6EBB27F21E667E100B5AA5E /* Bite.swift */,
 			);
-			path = "from-the-elixir";
+			path = "from-zombie-potion";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
