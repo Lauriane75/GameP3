@@ -177,6 +177,7 @@ class Game {
     func battle() {
         showThe2Teams() // this func is showing the 2 teams' stats of fights
         var currentCharacter:Character
+        var characterTarget : Character
         repeat {
             for (i, item) in arrayPlayer.enumerated() {
                 let currentPlayer = item.namePlayer
@@ -187,48 +188,54 @@ class Game {
                 print("\(item.namePlayer) please choose one of your characters to start the battle, typing his number")
                 item.statsOfFights()
                 // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
-                currentCharacter = item.arrayCharacter[item.characterChoice()-1]
-                // la on a exactement le nombre d'item ds le tableau
-                
-                // call the zombie potion randomly to bring a dead character back to life and transform him in a walking dead newcharacter
-                item.zombiePotion(character:currentCharacter)
-                // launch the magic box with 3 new weapons inside = depending on the type of character
-                magicBox(character: currentCharacter, player: item)
-                if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not => It's an optional because maybe the player wouldn't choose a Magus to create his team
-                    print("\(item.namePlayer), choose someone of your team to cure him.\nBe careful you can't cure yourself")
-                    item.statsOfFights() // show the stats of fights
-                    magus.cure(character: item.arrayCharacter[item.characterChoice()-1])
-                    // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
-                } else {
-                    
-                    let targetPlayer = i == 0 ? arrayPlayer[1] : arrayPlayer[0]
-                     print("\(currentPlayer) Please choose someone of the opposit team to fight with.")
-                    targetPlayer.statsOfFights()
-                    let characterTarget = targetPlayer.arrayCharacter[targetPlayer.characterChoice()-1]
-                
-                        //if characterTarget.defensePoints <= 0 {
-                        //    print("This guy is already over!")
-                        if currentCharacter.defensePoints > 0 {
-                            characterTarget.defensePoints -= currentCharacter.weapon.injuries  // to take the defense points of the character enemy
-                            print(" Your \(currentCharacter.type) \(currentCharacter.nameCharacter) hit the \(characterTarget.type) \(characterTarget.nameCharacter) with his \(currentCharacter.weapon.nameWeapon) taking \(currentCharacter.weapon.injuries) defense points to him.")
-                            // if the target character is still alive
-                            if characterTarget.defensePoints <= 0 {
-                                characterTarget.defensePoints = 0
-                                print ("\(characterTarget.type) \(characterTarget.nameCharacter) died")
-                                targetPlayer.arrayDeadCharacter.append(characterTarget)
-                                targetPlayer.arrayCharacter = targetPlayer.arrayCharacter.filter { $0.defensePoints > 0 }}
-                            // fighting in return if the opponent character is still alive
-                            if characterTarget.defensePoints > 0 {
-                            if characterTarget is Magus {
-                                print ("Your \(characterTarget.type) \(characterTarget.nameCharacter) doesn't know how to fight.")
-                            } else {
-                                currentCharacter.defensePoints -= characterTarget.weapon.injuries  // to take the defense points of the character enemy
-                                print(" The \(characterTarget.type) \(characterTarget.nameCharacter) hit the \(currentCharacter.type) \(currentCharacter.nameCharacter) with his \(characterTarget.weapon.nameWeapon) taking \(characterTarget.weapon.injuries) defense points to him.")
-                                if currentCharacter.defensePoints <= 0 {
-                                    currentCharacter.defensePoints = 0
-                                    print ("\(currentCharacter.type) \(currentCharacter.nameCharacter) just died")
-                                    item.arrayDeadCharacter.append(currentCharacter)
-                                     item.arrayCharacter = item.arrayCharacter.filter { $0.defensePoints > 0 }
+                var characterChoice:Int
+                repeat {
+                    characterChoice = item.characterChoice()-1
+                } while (characterChoice < 0 || characterChoice >= item.arrayCharacter.count)
+                if (characterChoice >= 0 && characterChoice < item.arrayCharacter.count) {
+                    currentCharacter = item.arrayCharacter[characterChoice]
+                    // call the zombie potion randomly to bring a dead character back to life and transform him in a walking dead newcharacter
+                    item.zombiePotion(character:currentCharacter)
+                    // launch the magic box with 3 new weapons inside = depending on the type of character
+                    magicBox(character: currentCharacter, player: item)
+                    if let magus = currentCharacter as? Magus{ // to verifie if the current character chose is a Magus or not => It's an optional because maybe the player wouldn't choose a Magus to create his team
+                        print("\(item.namePlayer), choose someone of your team to cure him.\nBe careful you can't cure yourself")
+                        item.statsOfFights() // show the stats of fights
+                        // -1 because the index start at 0 so if I choose 1 it's gonna be the #O in i
+                        magus.cure(character: item.arrayCharacter[item.characterChoice()-1])
+                    } else {
+                        let targetPlayer = i == 0 ? arrayPlayer[1] : arrayPlayer[0]
+                        print("\(currentPlayer) Please choose someone of the opposit team to fight with.")
+                        targetPlayer.statsOfFights()
+                        var characterChoice:Int
+                        repeat {
+                            characterChoice = targetPlayer.characterChoice()-1
+                        } while (characterChoice < 0 || characterChoice >= targetPlayer.arrayCharacter.count)
+                        if (characterChoice >= 0 && characterChoice < targetPlayer.arrayCharacter.count) {
+                            characterTarget = targetPlayer.arrayCharacter[characterChoice]
+                            if currentCharacter.defensePoints > 0 {
+                                characterTarget.defensePoints -= currentCharacter.weapon.injuries  // to take the defense points of the character enemy
+                                print(" Your \(currentCharacter.type) \(currentCharacter.nameCharacter) hit the \(characterTarget.type) \(characterTarget.nameCharacter) with his \(currentCharacter.weapon.nameWeapon) taking \(currentCharacter.weapon.injuries) defense points to him.")
+                                // if the target character is still alive
+                                if characterTarget.defensePoints <= 0 {
+                                    characterTarget.defensePoints = 0
+                                    print ("\(characterTarget.type) \(characterTarget.nameCharacter) died")
+                                    targetPlayer.arrayDeadCharacter.append(characterTarget)
+                                    targetPlayer.arrayCharacter = targetPlayer.arrayCharacter.filter { $0.defensePoints > 0 }}
+                                // fighting in return if the opponent character is still alive
+                                if characterTarget.defensePoints > 0 {
+                                    if characterTarget is Magus {
+                                        print ("Your \(characterTarget.type) \(characterTarget.nameCharacter) doesn't know how to fight.")
+                                    } else {
+                                        currentCharacter.defensePoints -= characterTarget.weapon.injuries  // to take the defense points of the character enemy
+                                        print(" The \(characterTarget.type) \(characterTarget.nameCharacter) hit the \(currentCharacter.type) \(currentCharacter.nameCharacter) with his \(characterTarget.weapon.nameWeapon) taking \(characterTarget.weapon.injuries) defense points to him.")
+                                        if currentCharacter.defensePoints <= 0 {
+                                            currentCharacter.defensePoints = 0
+                                            print ("\(currentCharacter.type) \(currentCharacter.nameCharacter) just died")
+                                            item.arrayDeadCharacter.append(currentCharacter)
+                                            item.arrayCharacter = item.arrayCharacter.filter { $0.defensePoints > 0 }
+                                        }
+                                    }
                                 }
                             }
                         }
