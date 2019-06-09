@@ -15,9 +15,9 @@ class Character {
     var weapon: Weapon
     let type: String
     var fullLifeBar: Int
-    
     // init values
-    init(nameCharacter: String,defensePoints: Int,attackPoints: Int,weapon: Weapon, type: String, fullLifeBar: Int) {
+    init(nameCharacter: String, defensePoints: Int,
+         attackPoints: Int, weapon: Weapon, type: String, fullLifeBar: Int) {
        self.nameCharacter = nameCharacter
        self.defensePoints = defensePoints
        self.attackPoints = attackPoints
@@ -25,37 +25,4 @@ class Character {
        self.type = type
        self.fullLifeBar = fullLifeBar
     }
-    
-   
-    
-    
-  
 } // End of class character
-
-
-
-
-
-
-
-    
-  
-    
-    
-    
-    
-    
-    
-
-
-  
-    
-   
-    
-    
-    
-    
-    
-
-
-

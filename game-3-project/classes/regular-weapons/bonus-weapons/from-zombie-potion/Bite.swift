@@ -8,8 +8,9 @@
 
 import Foundation
 // From zombie potion => Walking dead's weapon on an opponent character
-// The zombie potion is a life potion which will transform the last dead character to a Walking Dead who can bite people.
-class Bite:Weapon {
+// The zombie potion is a life potion which will transform the last dead
+// character to a Walking Dead who can bite people.
+class Bite: Weapon {
     init() {
         super.init(nameWeapon: "Bite", injuries: 70, healing: 0)
     }

@@ -10,6 +10,7 @@ import Foundation
 // the character Dwarf
 class Dwarf: Character {
     init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 70,attackPoints: 50, weapon:Axe(), type: "Dwarf", fullLifeBar: 70)
+        super.init(nameCharacter: name, defensePoints: 70, attackPoints: 50,
+                   weapon: Axe(), type: "Dwarf", fullLifeBar: 70)
     }
 }

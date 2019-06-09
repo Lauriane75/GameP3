@@ -12,8 +12,6 @@ class Weapon {
     let nameWeapon: String
     var injuries: Int
     var healing: Int
-    
-    
     init(nameWeapon: String, injuries: Int, healing: Int) {
         self.injuries = injuries
         self.nameWeapon = nameWeapon

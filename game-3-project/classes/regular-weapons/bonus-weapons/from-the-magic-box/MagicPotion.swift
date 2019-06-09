@@ -8,8 +8,8 @@
 
 import Foundation
 // From the MagicBox => Can be use by a Magus on a character of the same team
-class MagicPotion:Weapon {
-    init(){
+class MagicPotion: Weapon {
+    init() {
         super.init(nameWeapon: "Magic Potion", injuries: 0, healing: 100)
         // That potion give 100 defense points to the character
     }

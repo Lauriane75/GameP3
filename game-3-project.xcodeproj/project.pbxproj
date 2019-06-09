@@ -12,6 +12,7 @@
 		F6AFA01721C3E62600F94BEB /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AFA01321C3E62600F94BEB /* Character.swift */; };
 		F6AFA01821C3E62600F94BEB /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AFA01421C3E62600F94BEB /* Weapon.swift */; };
 		F6AFA01921C3E62600F94BEB /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6AFA01521C3E62600F94BEB /* Game.swift */; };
+		F6B47D5E22AD4112006B6930 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B47D5D22AD4112006B6930 /* Text.swift */; };
 		F6EBB26021E65EDD00B5AA5E /* UniqueName.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EBB25F21E65EDD00B5AA5E /* UniqueName.swift */; };
 		F6EBB26221E6649500B5AA5E /* Fighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EBB26121E6649500B5AA5E /* Fighter.swift */; };
 		F6EBB26421E664C000B5AA5E /* Magus.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6EBB26321E664C000B5AA5E /* Magus.swift */; };
@@ -47,6 +48,7 @@
 		F6AFA01321C3E62600F94BEB /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		F6AFA01421C3E62600F94BEB /* Weapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		F6AFA01521C3E62600F94BEB /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		F6B47D5D22AD4112006B6930 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		F6EBB25F21E65EDD00B5AA5E /* UniqueName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueName.swift; sourceTree = "<group>"; };
 		F6EBB26121E6649500B5AA5E /* Fighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fighter.swift; sourceTree = "<group>"; };
 		F6EBB26321E664C000B5AA5E /* Magus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Magus.swift; sourceTree = "<group>"; };
@@ -102,8 +104,9 @@
 		F6AFA01121C3E5CE00F94BEB /* classes */ = {
 			isa = PBXGroup;
 			children = (
-				F6AFA01521C3E62600F94BEB /* Game.swift */,
 				F6EBB25F21E65EDD00B5AA5E /* UniqueName.swift */,
+				F6B47D5D22AD4112006B6930 /* Text.swift */,
+				F6AFA01521C3E62600F94BEB /* Game.swift */,
 				F6AFA01221C3E62600F94BEB /* Player.swift */,
 				F6EBB25D21E65E9C00B5AA5E /* regular-characters */,
 				F6EBB25C21E65E6E00B5AA5E /* regular-weapons */,
@@ -182,6 +185,7 @@
 				F6AFA00321C3E2EF00F94BEB /* Sources */,
 				F6AFA00421C3E2EF00F94BEB /* Frameworks */,
 				F6AFA00521C3E2EF00F94BEB /* CopyFiles */,
+				F6B47D5B22AD32F2006B6930 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -204,6 +208,7 @@
 				TargetAttributes = {
 					F6AFA00621C3E2EF00F94BEB = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -213,6 +218,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = F6AF9FFE21C3E2EF00F94BEB;
 			productRefGroup = F6AFA00821C3E2EF00F94BEB /* Products */;
@@ -223,6 +229,26 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F6B47D5B22AD32F2006B6930 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F6AFA00321C3E2EF00F94BEB /* Sources */ = {
@@ -235,6 +261,7 @@
 				F6EBB26F21E665AF00B5AA5E /* Axe.swift in Sources */,
 				F6EBB26021E65EDD00B5AA5E /* UniqueName.swift in Sources */,
 				F6EBB26821E664F900B5AA5E /* Dwarf.swift in Sources */,
+				F6B47D5E22AD4112006B6930 /* Text.swift in Sources */,
 				F6EBB27A21E6674D00B5AA5E /* MagicPotion.swift in Sources */,
 				F6EBB26D21E6657C00B5AA5E /* WalkingDead.swift in Sources */,
 				F6EBB26221E6649500B5AA5E /* Fighter.swift in Sources */,
@@ -374,7 +401,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -383,7 +410,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

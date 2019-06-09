@@ -9,11 +9,7 @@
 import Foundation
 
 let game = Game()
-
 while game.playerLost() == false {
     game.playGame()
 }
-
 print("End of Game !")
-
-

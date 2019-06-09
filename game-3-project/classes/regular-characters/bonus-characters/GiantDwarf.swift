@@ -10,6 +10,7 @@ import Foundation
 // the character GiantDwarf in Bonus from the Magic Box
 class GiantDwarf: Character {
     init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 150,attackPoints: 50, weapon:Axe(), type: "Giant Dwarf", fullLifeBar: 150)
+        super.init(nameCharacter: name, defensePoints: 150,
+                   attackPoints: 50, weapon: Axe(), type: "Giant Dwarf", fullLifeBar: 150)
     }
 }

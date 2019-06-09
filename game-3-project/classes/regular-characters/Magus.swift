@@ -10,10 +10,9 @@ import Foundation
 // the character Magus
 class Magus: Character {
     init(name: String) {
-        super.init(nameCharacter: name, defensePoints: 200,attackPoints: 0, weapon:MagicHealing(), type: "Magus", fullLifeBar: 200)
+        super.init(nameCharacter: name, defensePoints: 200, attackPoints: 0,
+                   weapon: MagicHealing(), type: "Magus", fullLifeBar: 200)
     }
-    
-    
     // the action of the magus to heal one of the caracter of his own team
     func cure(character: Character) {
         if defensePoints > 0 {
@@ -23,9 +22,14 @@ class Magus: Character {
                 print ("You can't cure yourself")
             } else {
                 character.defensePoints += weapon.healing  // give 20 life points to the character designated
-                print("Your Magus just gave \(weapon.healing) defense points to your \(character.type) \(character.nameCharacter)")
-                print("Name : \(character.type) \(character.nameCharacter)    Defense points : \(character.defensePoints)    Attack points : \(character.weapon.injuries)")
-                if character.defensePoints >= character.fullLifeBar { // to block the defense points at 100% for each character
+                print("""
+                    Your Magus just gave \(weapon.healing) defense points to your
+                    \(character.type) \(character.nameCharacter)\n
+Name : \(character.type) \(character.nameCharacter)    Defense points :
+                    \(character.defensePoints)    Attack points : \(character.weapon.injuries)
+""")
+                if character.defensePoints >= character.fullLifeBar {
+                    // to block the defense points at 100% for each character
                     character.defensePoints = character.fullLifeBar
                     print("Your \(character.type) \(character.nameCharacter) has all his life points.")
                 }
@@ -34,5 +38,4 @@ class Magus: Character {
             print("Your Magus is dead... Try to find an Elixir potion to bring it back to life.")
         }
     }
-    
 } // End of Magus Class
